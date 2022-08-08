@@ -2,11 +2,11 @@
 
 ## Technologies
 
-**ReactJS 18**
-**TypeScript**
-**Linaria**
-**Recoil**
-**Normalize**
+**ReactJS 18
+**TypeScript
+**Linaria
+**Recoil
+**Normalize
 
 ## Description
 
