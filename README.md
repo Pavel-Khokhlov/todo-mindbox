@@ -1,19 +1,23 @@
-### ТЕСТОВЫЙ ПРОЕКТ TODO FOR MINDBOX
+# ТЕСТОВЫЙ ПРОЕКТ TODO FOR MINDBOX
+
+* [Link to the project](https://pavel-khokhlov.github.io/todo-mindbox/)
 
 ## Technologies
 
-**ReactJS 18
-**TypeScript
-**Linaria
-**Recoil
-**Normalize
+1. ReactJS 18
+2. TypeScript
+3. Linaria
+4. Recoil
+5. Normalize
 
 ## Description
 
 Проект собран на React и TypeScript, в качестве менеджера
-состояния использовал Recoil.
+состояния использовал Recoil (применил с целью изучения). В качестве стилей применена технология Linaria (использую впервые).
 Реализованы функции:
 
 1. добавление задачи, стоит блокировка пустой строки, появляется алерт
 2. дизейбл кнопок выбора и удаление завершенных todos
 3. переключение между всеми, активными и завершенными todos
+4. настроен счетчик показа незавершенных todos
+5. установил запрет копирования и постановки курсора на странице
