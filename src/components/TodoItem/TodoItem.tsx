@@ -6,10 +6,10 @@ import SVG from 'react-inlinesvg';
 import { SVGProps } from '../FieldInput/FieldInput';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { todoListState } from '../../store/todos';
-import { css } from '@linaria/core';
 
 interface TodoItemProps {
   item: TodoProps;
+  key?: number;
 }
 
 const STodoItem = styled.div`
@@ -32,6 +32,11 @@ const SCheckBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 `;
 
 const SIcon = styled(SVG)<SVGProps>`
@@ -46,6 +51,11 @@ const SInput = styled.input`
 const SLabel = styled.label`
   font-size: 25px;
   color: black;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   &.completed {
     color: lightgrey;
     text-decoration: line-through;
@@ -57,7 +67,7 @@ const TodoItem = ({ item }: TodoItemProps) => {
   const todoList = useRecoilValue(todoListState);
   const { id, name, isCompleted } = item;
   const handleClick = () => {
-    const newList = todoList.map((item) => {
+    const newList = todoList.map((item: TodoProps) => {
       return item.id === id
         ? { ...item, isCompleted: !item.isCompleted }
         : item;

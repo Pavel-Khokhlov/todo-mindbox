@@ -12,6 +12,11 @@ type TextTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 const SText = styled.h1`
   margin: 0;
   font-family: 'Roboto Condensed', sans-serif;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
   &.header {
     color: tomato;
     font-family: 'Dosis', sans-serif;

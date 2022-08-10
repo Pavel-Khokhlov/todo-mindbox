@@ -1,7 +1,7 @@
 import React, { MouseEvent, useEffect, useState } from 'react';
 import { styled } from '@linaria/react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { todoListState, todosToDisplayState } from '../../store/todos';
+import { todoListState, TodoProps, todosToDisplayState } from '../../store/todos';
 import BaseText from '../BaseText/BaseText';
 import MainButton from '../MainButton/MainButton';
 
@@ -36,8 +36,8 @@ export default function Control() {
   const [isTouched, setIsTouched] = useState('all');
   const setTodoList = useSetRecoilState(todoListState);
   const setTodosToDisplay = useSetRecoilState(todosToDisplayState);
-  const activeTodos = todoList.filter((item) => item.isCompleted === false);
-  const completedTodos = todoList.filter((item) => item.isCompleted === true);
+  const activeTodos = todoList.filter((item: TodoProps) => item.isCompleted === false);
+  const completedTodos = todoList.filter((item: TodoProps) => item.isCompleted === true);
 
   const countTodosToComplete =
     activeTodos?.length === 0

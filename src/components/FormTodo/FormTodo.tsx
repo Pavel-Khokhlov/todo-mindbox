@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from 'react';
 import { styled } from '@linaria/react';
 import FieldInput from '../FieldInput/FieldInput';
 import { useSetRecoilState } from 'recoil';
-import { todoListState } from '../../store/todos';
+import { todoListState, TodoProps } from '../../store/todos';
 
 const SForm = styled.form`
   width: 100%;
@@ -24,7 +24,7 @@ export default function FormTodo() {
     if (value.length === 0) {
       return alert('Please, enter your todo!')
     }
-    setTodoList((list) => [
+    setTodoList((list: TodoProps[]) => [
       ...list,
       {
         id: new Date()[Symbol.toPrimitive]('number'),

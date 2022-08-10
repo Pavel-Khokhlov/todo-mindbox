@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { styled } from '@linaria/react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { todoListState, todosToDisplayState } from '../../store/todos';
+import { todoListState, TodoProps, todosToDisplayState } from '../../store/todos';
 import TodoItem from '../TodoItem/TodoItem';
 
 const STodosList = styled.ul`
@@ -25,7 +25,7 @@ function TodosList() {
 
   return (
     <STodosList>
-      {todosToDisplay && todosToDisplay.map((i) => <TodoItem key={i.id} item={i} />)}
+      {todosToDisplay && todosToDisplay.map((item: TodoProps) => <TodoItem key={item.id} item={item} />)}
     </STodosList>
   );
 }

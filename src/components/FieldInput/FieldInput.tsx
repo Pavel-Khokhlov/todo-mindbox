@@ -5,7 +5,7 @@ import SVG from 'react-inlinesvg';
 
 export interface SVGProps {
   color?: string;
-  size?: string | number| undefined;
+  src: string;
 }
 
 const SField = styled.label`

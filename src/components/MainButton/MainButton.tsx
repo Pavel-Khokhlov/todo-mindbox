@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react';
 import { styled } from '@linaria/react';
 
 export type MainButtonProps = {
+  key?: number;
   type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   id?: string;
