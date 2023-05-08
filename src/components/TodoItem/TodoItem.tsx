@@ -55,7 +55,7 @@ const StyledLabel = styled.label`
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  width: 80%;
+  width: 85%;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

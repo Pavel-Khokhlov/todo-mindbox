@@ -13,7 +13,7 @@ const StyledField = styled.label`
 `;
 
 const StyledInput = styled.input`
-  width: 100%;
+  width: 95%;
   height: min(80px, 12.5vw);
   border: none;
   padding-left: min(60px, 12.5vw);
@@ -21,6 +21,9 @@ const StyledInput = styled.input`
   font-size: min(25px, 5vw);
   font-style: italic;
   outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   &::placeholder {
     color: rgba(0, 0, 0, 0.2);
   }
