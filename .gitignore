@@ -35,3 +35,6 @@ bower_components
 
 # ignore the dist folder
 dist
+
+# ignore the build folder
+build
