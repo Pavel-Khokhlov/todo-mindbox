@@ -13,7 +13,7 @@ export default function FormTodo() {
   const setTodoList = useSetRecoilState(todoListState);
   const [value, setValue] = useState<string>('');
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
-    const inputResult = e.currentTarget.value.trim();
+    const inputResult = e.currentTarget.value.trimStart();
     const updatedResult =
     inputResult.charAt(0).toUpperCase() +
     inputResult.slice(1);
