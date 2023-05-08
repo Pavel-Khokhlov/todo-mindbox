@@ -1,23 +1,37 @@
-.DS_Store
-.node_modules
-dist
-locales
+# My .gitignore file
 
-# dependencies
-.pnp
-.pnp.js
+### Node ###
 
-# testing
-.coverage
+# Ignore node_modules and its child directories
+node_modules
 
-# production
-.build
+# Ignore Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
 
-# misc
-.DS_Store
-.env.local
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# dotenv environment variable files
+.env
 .env.development.local
 .env.test.local
 .env.production.local
+.env.local
 
-npm-debug.log*
+# ignore the dist folder
+dist
