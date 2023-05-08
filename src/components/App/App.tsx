@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { RecoilRoot } from 'recoil';
 
-const SApp = styled.section`
+const StyledApp = styled.section`
   position: relative;
   background-color: rgb(245, 245, 245);
   width: 100vw;
@@ -17,11 +17,11 @@ const SApp = styled.section`
 export default function App() {
   return (
     <RecoilRoot>
-      <SApp>
+      <StyledApp>
         <Header />
         <MainScreen />
         <Footer />
-      </SApp>
+      </StyledApp>
     </RecoilRoot>
   );
 }
