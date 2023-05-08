@@ -1,7 +1,9 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+.DS_Store
+.node_modules
+dist
+locales
 
 # dependencies
-./node_modules
 .pnp
 .pnp.js
 
@@ -19,4 +21,3 @@
 .env.production.local
 
 npm-debug.log*
-node_modules
