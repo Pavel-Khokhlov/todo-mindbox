@@ -8,18 +8,17 @@ export interface SVGProps {
   src: string;
 }
 
-const SField = styled.label`
+const StyledField = styled.label`
   position: relative;
 `;
 
-const SInput = styled.input`
+const StyledInput = styled.input`
   width: 100%;
-  height: 80px;
+  height: min(80px, 12.5vw);
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding-left: 60px;
+  padding-left: min(60px, 12.5vw);
   box-sizing: border-box;
-  font-size: 25px;
+  font-size: min(25px, 5vw);
   font-style: italic;
   outline: none;
   &::placeholder {
@@ -27,13 +26,14 @@ const SInput = styled.input`
   }
 `;
 
-const SIcon = styled(SVG)<SVGProps>`
+const StyledIcon = styled(SVG)<SVGProps>`
   position: absolute;
   top: 50%;
-  left: 15px;
+  left: 0;
+  padding: 0 10px;
   transform: translate(0, -50%);
-  wisth: 40px;
-  height: 40px;
+  width: min(40px, 6.25vw);
+  height: min(40px, 6.25vw);
 `;
 
 interface FieldInputProps {
@@ -49,16 +49,16 @@ const FieldInput = ({ value, onChange, placeholder }: FieldInputProps) => {
     setIsFocused(!isFocused);
   };
   return (
-    <SField>
-      <SInput
+    <StyledField>
+      <StyledInput
         onChange={onChange}
         value={value}
         placeholder={!isFocused ? placeholder : ''}
         onFocus={handleFocus}
         onBlur={handleFocus}
       />
-      <SIcon src={Icon} color={isFocused ? 'skyblue' : 'rgba(0, 0, 0, 0.2)'} />
-    </SField>
+      <StyledIcon src={Icon} color={isFocused ? 'skyblue' : 'rgba(0, 0, 0, 0.2)'} />
+    </StyledField>
   );
 };
 

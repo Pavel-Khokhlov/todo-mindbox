@@ -6,28 +6,27 @@ import SVG from 'react-inlinesvg';
 import { SVGProps } from '../FieldInput/FieldInput';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { todoListState } from '../../store/todos';
+import Delimiter from '../Delimiter/Delimiter';
 
 interface TodoItemProps {
   item: TodoProps;
   key?: number;
 }
 
-const STodoItem = styled.div`
+const StyledTodoItem = styled.div`
   width: 100%;
-  height: 80px;
+  height: min(80px, 12.5vw);
   display: flex;
   align-items: center;
-  gap: 20px;
   border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding-left: 10px;
   box-sizing: border-box;
 `;
 
-const SCheckBox = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
+const StyledCheckBox = styled.div`
+  width: min(40px, 6.25vw);
+  height: min(40px, 6.25vw);
+  margin: 0 10px;
+  border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
@@ -39,23 +38,28 @@ const SCheckBox = styled.div`
   user-select: none;
 `;
 
-const SIcon = styled(SVG)<SVGProps>`
-  width: 25px;
-  height: 25px;
+const StyledIcon = styled(SVG)<SVGProps>`
+  width: min(25px, 5vw);
+  height: min(25px, 5vw);
 `;
 
-const SInput = styled.input`
+const StyledInput = styled.input`
   display: none;
 `;
 
-const SLabel = styled.label`
-  font-size: 25px;
+const StyledLabel = styled.label`
+  font-size: min(25px, 5vw);
   color: black;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: start;
   &.completed {
     color: lightgrey;
     text-decoration: line-through;
@@ -78,13 +82,13 @@ const TodoItem = ({ item }: TodoItemProps) => {
   const labelClassName = isCompleted ? 'completed' : '';
 
   return (
-    <STodoItem onClick={handleClick}>
-      <SCheckBox>
-        {isCompleted && <SIcon src={Icon} color={'rgba(52, 201, 36, 1)'} />}
-      </SCheckBox>
-      <SInput type="checkbox" checked={isCompleted} readOnly />
-      <SLabel className={labelClassName}>{name}</SLabel>
-    </STodoItem>
+    <><StyledTodoItem onClick={handleClick}>
+      <StyledCheckBox>
+        {isCompleted && <StyledIcon src={Icon} color={'rgba(52, 201, 36, 1)'} />}
+      </StyledCheckBox>
+      <StyledInput type="checkbox" checked={isCompleted} readOnly />
+      <StyledLabel className={labelClassName}>{name}</StyledLabel>
+    </StyledTodoItem><Delimiter /></>
   );
 };
 

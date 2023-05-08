@@ -9,8 +9,9 @@ type BaseTextProps = {
 
 type TextTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 
-const SText = styled.h1`
+const StyledText = styled.h1`
   margin: 0;
+  font-size: min(16px, 3.75vw);
   font-family: 'Roboto Condensed', sans-serif;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -20,15 +21,15 @@ const SText = styled.h1`
   &.header {
     color: tomato;
     font-family: 'Dosis', sans-serif;
-    font-size: 80px;
-    padding: 20px 0;
+    font-size: min(60px, 10vw);
+    padding: 10px 0;
   }
   &.footer {
-    font-size: 16px;
+    font-size: min(14px, 3.5vw);
     padding: 10px 0;
   }
   &.button {
-    font-size: 16px;
+    font-size: min(16px, 3.75vw);
   }
 `;
 
@@ -39,9 +40,9 @@ const BaseText = ({
 }: BaseTextProps) => {
   const tag = level === `p` ? 'p' : (`h${level}` as TextTag);
   return (
-    <SText as={tag} className={className}>
+    <StyledText as={tag} className={className}>
       {children}
-    </SText>
+    </StyledText>
   );
 }
 

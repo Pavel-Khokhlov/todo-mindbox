@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <HeaderTop>
       <BaseText level={1} className="header">
-        todos
+        To-Do
       </BaseText>
     </HeaderTop>
   );

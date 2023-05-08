@@ -4,8 +4,9 @@ import FieldInput from '../FieldInput/FieldInput';
 import { useSetRecoilState } from 'recoil';
 import { todoListState, TodoProps } from '../../store/todos';
 
-const SForm = styled.form`
+const StyledForm = styled.form`
   width: 100%;
+  text-align: start;
 `;
 
 export default function FormTodo() {
@@ -36,12 +37,12 @@ export default function FormTodo() {
   };
 
   return (
-    <SForm onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit}>
       <FieldInput
         value={value}
         onChange={handleChange}
         placeholder="What needs to be done?"
       />
-    </SForm>
+    </StyledForm>
   );
 }

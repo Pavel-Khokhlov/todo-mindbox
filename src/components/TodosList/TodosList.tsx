@@ -4,11 +4,11 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { todoListState, TodoProps, todosToDisplayState } from '../../store/todos';
 import TodoItem from '../TodoItem/TodoItem';
 
-const STodosList = styled.ul`
+const StyledTodosList = styled.ul`
   width: 100%;
-  height: 320px;
-  overflow: scroll;
+  overflow: auto;
   list-style: none;
+  min-height: min(320px, 50vw);
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -21,12 +21,12 @@ function TodosList() {
 
   useEffect(() => {
     setTodosToDisplay(todoList);
-  }, [todoList]);
+  }, [setTodosToDisplay, todoList]);
 
   return (
-    <STodosList>
+    <StyledTodosList>
       {todosToDisplay && todosToDisplay.map((item: TodoProps) => <TodoItem key={item.id} item={item} />)}
-    </STodosList>
+    </StyledTodosList>
   );
 }
 

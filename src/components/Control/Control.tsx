@@ -5,12 +5,9 @@ import { todoListState, TodoProps, todosToDisplayState } from '../../store/todos
 import BaseText from '../BaseText/BaseText';
 import MainButton from '../MainButton/MainButton';
 
-const SControlBlock = styled.section`
-  position: absolute;
-  bottom: 0;
-  right: 0;
+const StyledControlBlock = styled.section`
   width: 100%;
-  height: 80px;
+  height: min(50px, 10vw);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,7 +15,7 @@ const SControlBlock = styled.section`
   padding: 0 10px;
 `;
 
-const SButtonBlock = styled.div`
+const StyledButtonBlock = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -79,19 +76,19 @@ export default function Control() {
     } 
 
   return (
-    <SControlBlock>
+    <StyledControlBlock>
       <BaseText level={'p'}>{countTodosToComplete}</BaseText>
-      <SButtonBlock>
+      <StyledButtonBlock>
         {controls.map((i) => {
           return (
             <MainButton key={i.id} onButtonClick={handleControlClick} type="button" id={i.name} disabled={defineDisabled(i.name)} className={isActiveClassName(i.name)}>
                 <BaseText level={'p'} className="button">{capitalize(i.name)}</BaseText>
             </MainButton>
         )})}
-      </SButtonBlock>
+      </StyledButtonBlock>
       <MainButton onButtonClick={handleClick} type="button" disabled={isButtonDisabled}>
         <BaseText level={'p'} className="button">Clear completed</BaseText>
       </MainButton>
-    </SControlBlock>
+    </StyledControlBlock>
   );
 }

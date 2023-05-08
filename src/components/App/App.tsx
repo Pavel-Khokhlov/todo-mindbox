@@ -7,8 +7,10 @@ import { RecoilRoot } from 'recoil';
 
 const StyledApp = styled.section`
   position: relative;
-  background-color: rgb(245, 245, 245);
   width: 100vw;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   margin: 0;
   padding: 0;

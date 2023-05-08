@@ -11,7 +11,7 @@ export type MainButtonProps = {
   onButtonClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const SButton = styled.button`
+const StyledButton = styled.button`
   margin: 0;
   padding: 0;
   font-family: "Open Sans";
@@ -37,9 +37,9 @@ const MainButton = ({
   children,
 }: MainButtonProps) => {
   return (
-    <SButton type={type} id={id} className={className} onClick={onButtonClick} disabled={disabled}>
+    <StyledButton type={type} id={id} className={className} onClick={onButtonClick} disabled={disabled}>
       {children}
-    </SButton>
+    </StyledButton>
   );
 }
 
