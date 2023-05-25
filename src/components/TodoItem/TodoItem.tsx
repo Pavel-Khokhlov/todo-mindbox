@@ -1,20 +1,30 @@
-import React from 'react';
-import { styled } from '@linaria/react';
-import { TodoProps } from '../../store/todos';
-import Icon from '../../assets/icons/checkbox.svg';
-import SVG from 'react-inlinesvg';
-import { SVGProps } from '../FieldInput/FieldInput';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { todoListState } from '../../store/todos';
-import Delimiter from '../Delimiter/Delimiter';
+import React from "react";
+import { styled } from "@linaria/react";
+import Icon from "../../assets/icons/checkbox.svg";
+import SVG from "react-inlinesvg";
+import { SVGProps, StyledButton } from "../FieldInput/FieldInput";
+// import Delimiter from "../Delimiter/Delimiter";
+import { TodoItemProps } from "../MainScreen/MainScreen";
+import IconEdit from '../../assets/icons/edit.svg';
 
-interface TodoItemProps {
-  item: TodoProps;
+interface TodoProps {
+  item: TodoItemProps;
   key?: number;
+  onChange: (value: number) => void;
+  onEditClick: (item: TodoItemProps) => void;
 }
 
-const StyledTodoItem = styled.div`
+const StyledBlockItem = styled.div`
+  position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+`;
+
+const StyledTodoItem = styled.div`
+  width: min(700px,85%);
   height: min(80px, 12.5vw);
   display: flex;
   align-items: center;
@@ -23,8 +33,8 @@ const StyledTodoItem = styled.div`
 `;
 
 const StyledCheckBox = styled.div`
-  width: min(40px, 6.25vw);
-  height: min(40px, 6.25vw);
+  width: min(30px, 6.25vw);
+  height: min(30px, 6.25vw);
   margin: 0 10px;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -39,8 +49,8 @@ const StyledCheckBox = styled.div`
 `;
 
 const StyledIcon = styled(SVG)<SVGProps>`
-  width: min(25px, 5vw);
-  height: min(25px, 5vw);
+  width: min(20px, 5vw);
+  height: min(20px, 5vw);
 `;
 
 const StyledInput = styled.input`
@@ -49,13 +59,15 @@ const StyledInput = styled.input`
 
 const StyledLabel = styled.label`
   font-size: min(25px, 5vw);
+  font-weight: 400;
   color: black;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
-  width: 85%;
+  width: min(650px, 87%);
+  max-width: min-content;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -66,29 +78,36 @@ const StyledLabel = styled.label`
   }
 `;
 
-const TodoItem = ({ item }: TodoItemProps) => {
-  const setTodoList = useSetRecoilState(todoListState);
-  const todoList = useRecoilValue(todoListState);
-  const { id, name, isCompleted } = item;
-  const handleClick = () => {
-    const newList = todoList.map((item: TodoProps) => {
-      return item.id === id
-        ? { ...item, isCompleted: !item.isCompleted }
-        : item;
-    });
-    setTodoList(newList);
-  };
+const StyledIconEdit = styled(SVG)<SVGProps>`
+  padding: 0 10px;
+  width: min(30px, 6vw);
+  height: min(30px, 6vw);
+`;
 
-  const labelClassName = isCompleted ? 'completed' : '';
+const TodoItem = ({ item, onChange, onEditClick }: TodoProps) => {
+  const { id, name, isCompleted } = item;
+
+  const labelClassName = isCompleted ? "completed" : "";
+
+  /* const handleEditClick = (id: number) => {
+    console.log(`EDIT`, id);
+  }; */
 
   return (
-    <><StyledTodoItem onClick={handleClick}>
-      <StyledCheckBox>
-        {isCompleted && <StyledIcon src={Icon} color={'rgba(52, 201, 36, 1)'} />}
-      </StyledCheckBox>
-      <StyledInput type="checkbox" checked={isCompleted} readOnly />
-      <StyledLabel className={labelClassName}>{name}</StyledLabel>
-    </StyledTodoItem><Delimiter /></>
+    <StyledBlockItem>
+      <StyledTodoItem onClick={() => onChange(id)}>
+        <StyledCheckBox>
+          {isCompleted && (
+            <StyledIcon src={Icon} color={"rgba(52, 201, 36, 1)"} />
+          )}
+        </StyledCheckBox>
+        <StyledInput type="checkbox" checked={isCompleted} readOnly />
+        <StyledLabel className={labelClassName}>{name}</StyledLabel>
+      </StyledTodoItem>
+      <StyledButton onClick={() => onEditClick(item)}>
+        <StyledIconEdit src={IconEdit} color={'rgba(0, 0, 200, 0.5)'}  />
+      </StyledButton>
+    </StyledBlockItem>
   );
 };
 

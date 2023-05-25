@@ -1,6 +1,7 @@
 import React, { FormEvent, useState } from 'react';
 import { styled } from '@linaria/react';
-import Icon from '../../assets/icons/chevron.svg';
+import IconChevron from '../../assets/icons/chevron.svg';
+import IconAdd from '../../assets/icons/add.svg';
 import SVG from 'react-inlinesvg';
 
 export interface SVGProps {
@@ -10,6 +11,8 @@ export interface SVGProps {
 
 const StyledField = styled.label`
   position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 const StyledInput = styled.input`
@@ -29,7 +32,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const StyledIcon = styled(SVG)<SVGProps>`
+const StyledIconChevron = styled(SVG)<SVGProps>`
   position: absolute;
   top: 50%;
   left: 0;
@@ -38,14 +41,32 @@ const StyledIcon = styled(SVG)<SVGProps>`
   width: min(40px, 6.25vw);
   height: min(40px, 6.25vw);
 `;
+const StyledIconAdd = styled(SVG)<SVGProps>`
+  padding: 0 10px;
+  width: min(40px, 6.25vw);
+  height: min(40px, 6.25vw);
+`;
 
 interface FieldInputProps {
   value?: string;
   onChange: (e: FormEvent<HTMLInputElement>) => void;
+  onAddClick: (e: FormEvent<Element>) => void;
   placeholder: string;
+  disabled?: boolean;
 }
 
-const FieldInput = ({ value, onChange, placeholder }: FieldInputProps) => {
+export const StyledButton = styled.button`
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const FieldInput = ({ value, onChange, onAddClick, placeholder, disabled }: FieldInputProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleFocus = () => {
@@ -53,14 +74,17 @@ const FieldInput = ({ value, onChange, placeholder }: FieldInputProps) => {
   };
   return (
     <StyledField>
+      <StyledIconChevron src={IconChevron} color={isFocused ? 'rgba(0, 0, 200, 0.5)' : 'rgba(0, 0, 0, 0.2)'} />
       <StyledInput
         onChange={onChange}
         value={value}
-        placeholder={!isFocused ? placeholder : ''}
+        placeholder={placeholder}
         onFocus={handleFocus}
         onBlur={handleFocus}
       />
-      <StyledIcon src={Icon} color={isFocused ? 'skyblue' : 'rgba(0, 0, 0, 0.2)'} />
+      <StyledButton onClick={onAddClick} disabled={disabled}>
+        <StyledIconAdd src={IconAdd} color={disabled ? 'lightgrey' : 'rgba(0, 0, 200, 0.5)'}  />
+      </StyledButton>
     </StyledField>
   );
 };

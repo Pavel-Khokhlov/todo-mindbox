@@ -20,11 +20,12 @@ const StyledButton = styled.button`
   line-height: 1.5;
   background-color: transparent;
   border: none;
+  border-radius: 5px;
+  padding: 0 5px;
   cursor: pointer;
   &.active {
-    border-radius: 5px;
-    border: 1px solid black;
-    padding: 0 5px;
+    background: rgba(0, 0, 200, 0.5);
+    color: white;
   }
 `;
 

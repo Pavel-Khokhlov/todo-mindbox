@@ -22,14 +22,19 @@ const StyledText = styled.h1`
     color: tomato;
     font-family: 'Dosis', sans-serif;
     font-size: min(60px, 10vw);
+    font-weight: 600;
     padding: 10px 0;
   }
   &.footer {
     font-size: min(14px, 3.5vw);
+    font-weight: 300;
     padding: 10px 0;
   }
   &.button {
     font-size: min(16px, 3.75vw);
+  }
+  &.modal {
+    width: 100%
   }
 `;
 

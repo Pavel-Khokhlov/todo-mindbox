@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@linaria/react';
-import MainScreen from '../MainScreen/MainScreen';
+import MainScreen, { TodoItemProps } from '../MainScreen/MainScreen';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import { RecoilRoot } from 'recoil';
+import Modal from '../Modal/Modal';
 
 const StyledApp = styled.section`
   position: relative;
@@ -17,13 +17,36 @@ const StyledApp = styled.section`
 `;
 
 export default function App() {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const handleClose = () => {
+    setIsEditModalOpen(false)
+  };
+  const handleCloseByEsc = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      handleClose();
+    }
+  }
+  const handleEditClick = (item: TodoItemProps) => {
+    setIsEditModalOpen(true)
+    console.log(item)
+  }
+  useEffect(() => {
+    if (isEditModalOpen) {
+      document.addEventListener("keydown", (e) => {
+        handleCloseByEsc(e);
+      })
+    } else (
+      document.removeEventListener("keydown", (e) => {
+        handleCloseByEsc(e);
+      })
+    )
+  }, [isEditModalOpen])
   return (
-    <RecoilRoot>
       <StyledApp>
         <Header />
-        <MainScreen />
+        <MainScreen onEditClick={handleEditClick} />
         <Footer />
+        <Modal isShown={isEditModalOpen} title={"MODAL"} onClose={handleClose}/>
       </StyledApp>
-    </RecoilRoot>
   );
 }
