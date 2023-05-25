@@ -104,8 +104,8 @@ const TodoItem = ({ item, onChange, onEditClick }: TodoProps) => {
         <StyledInput type="checkbox" checked={isCompleted} readOnly />
         <StyledLabel className={labelClassName}>{name}</StyledLabel>
       </StyledTodoItem>
-      <StyledButton onClick={() => onEditClick(item)}>
-        <StyledIconEdit src={IconEdit} color={'rgba(0, 0, 200, 0.5)'}  />
+      <StyledButton onClick={() => onEditClick(item)} disabled={isCompleted}>
+        <StyledIconEdit src={IconEdit} color={isCompleted ? 'lightgrey' : 'rgba(0, 0, 200, 0.5)'}  />
       </StyledButton>
     </StyledBlockItem>
   );
