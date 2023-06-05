@@ -35,6 +35,9 @@ const StyledText = styled.h1`
   }
   &.modal {
     width: 100%
+    font-size: min(20px, 4vw);
+    font-weight: 700;
+    margin-bottom: min(30px, 5vw);
   }
 `;
 

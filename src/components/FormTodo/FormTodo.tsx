@@ -34,6 +34,7 @@ const handleSubmit = (e: FormEvent) => {
     <StyledForm onSubmit={handleSubmit}>
       <FieldInput
         value={value}
+        place="create"
         onChange={handleChangeValue}
         placeholder="What needs to be done?"
         onAddClick={handleSubmit}

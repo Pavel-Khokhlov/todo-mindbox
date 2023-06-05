@@ -14,6 +14,7 @@ export interface TodoItemProps {
   id: number;
   name: string;
   isCompleted: boolean;
+  modified_at?: number;
 }
 
 export type TodosArray = TodoItemProps[] | [];
@@ -96,6 +97,7 @@ export default function Main({onEditClick}: MainProps) {
           id: new Date()[Symbol.toPrimitive]("number"),
           name: todo,
           isCompleted: false,
+          modified_at: new Date()[Symbol.toPrimitive]("number"),
         },
       ]);
     } catch (error) {

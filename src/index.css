@@ -18,3 +18,8 @@ html {
   display: flex;
   flex-direction: column;
 }
+
+button {
+  margin: 0;
+  padding: 0;
+}
