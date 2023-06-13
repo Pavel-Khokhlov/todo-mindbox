@@ -1,4 +1,4 @@
-import React, { FormEvent, LegacyRef, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { styled } from '@linaria/react';
 import IconChevron from '../../assets/icons/chevron.svg';
 import IconAdd from '../../assets/icons/add.svg';
@@ -101,7 +101,7 @@ const FieldInput = ({value, place, onChange, onAddClick, placeholder, disabled }
         onBlur={handleFocus}
         className={inputClass}
         autoFocus={true}
-        spellcheck={false}
+        spellCheck={false}
       />
       {place === "create" && <StyledButton onClick={onAddClick} disabled={disabled}>
         <StyledIcon src={IconAdd} color={disabled ? 'lightgrey' : 'rgba(0, 0, 200, 0.5)'}  />
