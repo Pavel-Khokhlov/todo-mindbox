@@ -25,6 +25,10 @@ const StyledModal = styled.section`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 10;
+  @media screen and (max-width: 450px) {
+    align-items: start;
+    padding-top: 60px;
+  }
 `;
 
 const StyledBody = styled.div`
@@ -37,6 +41,7 @@ const StyledBody = styled.div`
   background: white;
   padding: min(40px, 7vw) min(20px, 3vw);
   border-radius: min(20px, 3vw);
+  
 `;
 
 const StyledCloseButton = styled(SVG)<SVGProps>`
@@ -46,6 +51,10 @@ const StyledCloseButton = styled(SVG)<SVGProps>`
   transform: translate(-50%, 0);
   width: min(40px, 8vw);
   height: min(40px, 8vw);
+  @media screen and (max-width: 450px) {
+    top: min(-40px, -6vh);
+    left: 50%;
+  }
 `;
 
 const StyledBottom = styled.div`

@@ -53,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@linaria/webpack-loader": "^4.1.2",
     "customize-cra": "^1.0.0",
     "gh-pages": "^4.0.0",
