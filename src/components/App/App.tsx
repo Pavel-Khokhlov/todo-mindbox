@@ -1,11 +1,14 @@
-import React, { FormEvent, useCallback, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { styled } from "@linaria/react";
-import MainScreen, { TodoItemProps } from "../MainScreen/MainScreen";
+import MainScreen from "../MainScreen/MainScreen";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Modal from "../Modal/Modal";
 import FieldInput from "../FieldInput/FieldInput";
 import BaseText from "../BaseText/BaseText";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../store";
+import { KEY_TODOS } from "../../utils";
 
 const StyledApp = styled.section`
   position: relative;
@@ -24,72 +27,82 @@ const StyledInfoBlock = styled.div`
   justify-content: space-between;
   padding: 10px 15px;
   box-sizing: border-box;
-  
 `;
 
-export default function App() {
-  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+const App = observer(() => {
+  const { globalUIStore, todosStore } = useStore();
   const [value, setValue] = useState<string>("");
-  const [createdDate, setCreatedDate] = useState<string>();
-  const [modifiedDate, setModifiedDate] = useState<string>();
 
-  const handleClose = () => {
-    setIsEditModalOpen(false);
-    setModifiedDate("")
+  const canSave = todosStore.editableTodo?.name !== value;
+
+  const getLocalDate = (value: number) => {
+    return new Date(value).toDateString();
   };
 
-  const handleCloseByEsc = useCallback(function (e: KeyboardEvent): void {
-    if (e.key === "Escape") return handleClose();
-  }, []);
+  const handleChangeValue = (e: FormEvent<HTMLInputElement>) => {
+    const inputResult = e.currentTarget.value.trimStart();
+    const updatedResult =
+      inputResult.charAt(0).toUpperCase() + inputResult.slice(1);
+    setValue(updatedResult);
+  };
 
-  function handleEditClick(item: TodoItemProps): void {
-    setIsEditModalOpen(true);
-    setValue(item.name);
-    item.id && setCreatedDate(new Date(item.id).toDateString());
-    item.modified_at && setModifiedDate(new Date(item.modified_at).toDateString());
-  }
-
-  const handleTaskChange = (e: FormEvent<HTMLInputElement>) => {
-    setValue(e.currentTarget.value);
+  const handleUpdateTodo = () => {
+    todosStore.setUpdateTodo(value);
+    globalUIStore.setEditModalShown(false);
   };
 
   useEffect(() => {
-    if (isEditModalOpen) {
-      document.addEventListener("keydown", (e: KeyboardEvent) => {
-        handleCloseByEsc(e);
-      });
+    if (todosStore.todosList.length !== 0) {
+      localStorage.setItem(KEY_TODOS, JSON.stringify(todosStore.todosList));
     } else {
-      document.removeEventListener("keydown", (e: KeyboardEvent) => {
-        handleCloseByEsc(e);
-      });
+      localStorage.removeItem(KEY_TODOS);
     }
-  }, [handleCloseByEsc, isEditModalOpen]);
+  }, [todosStore.todosList]);
+
+  useEffect(() => {
+    if (todosStore.editableTodo) {
+      setValue(todosStore.editableTodo.name);
+    } else {
+      setValue("");
+    }
+  }, [todosStore.editableTodo]);
 
   return (
     <StyledApp>
       <Header />
-      <MainScreen onEditClick={handleEditClick} />
+      <MainScreen />
       <Footer />
       <Modal
-        isShown={isEditModalOpen}
         title={"Edit the task"}
-        onClose={handleClose}
+        canSave={canSave}
+        onSubmit={handleUpdateTodo}
       >
         <FieldInput
           value={value}
           place="modal"
-          onChange={(e: any) => handleTaskChange(e)}
           placeholder="Please, edit the task!"
+          onChange={handleChangeValue}
         />
         <StyledInfoBlock>
           <BaseText level={"p"}>Created at:</BaseText>
-          <BaseText level={6}>{createdDate}</BaseText>
+          <BaseText level={6}>
+            {todosStore.editableTodo?.id &&
+              getLocalDate(todosStore.editableTodo?.id)}
+          </BaseText>
         </StyledInfoBlock>
-        {modifiedDate && <StyledInfoBlock>
-          <BaseText level={"p"}>Modified at:</BaseText>
-          <BaseText level={6}>{modifiedDate || 'no info'}</BaseText>
-        </StyledInfoBlock>}
+        {todosStore.editableTodo?.modified_at && (
+          <StyledInfoBlock>
+            <BaseText level={"p"}>Modified at:</BaseText>
+            <BaseText level={6}>
+              {(todosStore.editableTodo?.modified_at &&
+                getLocalDate(todosStore.editableTodo?.modified_at)) ||
+                "no info"}
+            </BaseText>
+          </StyledInfoBlock>
+        )}
       </Modal>
     </StyledApp>
   );
-}
+});
+
+export default App;

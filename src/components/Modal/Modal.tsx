@@ -1,17 +1,18 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useCallback, useEffect } from "react";
 import SVG from "react-inlinesvg";
 import { styled } from "@linaria/react";
 import BaseText from "../BaseText/BaseText";
 import IconClose from "../../assets/icons/close.svg";
 import { SVGProps, StyledButton } from "../FieldInput/FieldInput";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../store";
 // import { useTranslation } from "react-i18next";
 
 interface ModalProps {
-  isShown: boolean;
   title: string;
-  onClose?: () => void;
-  onChange?: (value: number) => void;
   children?: ReactNode;
+  canSave: boolean;
+  onSubmit: () => void;
 }
 
 const StyledModal = styled.section`
@@ -41,7 +42,6 @@ const StyledBody = styled.div`
   background: white;
   padding: min(40px, 7vw) min(20px, 3vw);
   border-radius: min(20px, 3vw);
-  
 `;
 
 const StyledCloseButton = styled(SVG)<SVGProps>`
@@ -67,7 +67,7 @@ const StyledBottom = styled.div`
 const StyledButtonCommon = styled.button`
   width: min(200px, 40vw);
   height: min(50px, 10vw);
-  font-size: min(20px, 5vw);
+  font-size: min(20px, 4vw);
   background: none;
   border-radius: min(8px, 2vw);
   cursor: pointer;
@@ -81,25 +81,50 @@ const StyledCancelButton = styled(StyledButtonCommon)`
 const StyledSubmitButton = styled(StyledButtonCommon)`
   color: lightgray;
   border: 1px solid lightgray;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  &.active {
+    color: white;
+    border: 1px solid rgba(0, 0, 200, 0.5);
+    background-color: rgba(0, 0, 200, 0.5);
+  }
 `;
 
-export default function Modal({
-  isShown,
-  title,
-  children,
-  onClose,
-}: ModalProps) {
-  // const t = useTranslation();
-  if (!isShown) {
+const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
+  const { globalUIStore } = useStore();
+
+  const handleCloseModal = useCallback(() => {
+    globalUIStore.setEditModalShown(false);
+  }, [globalUIStore])
+
+  const handleCloseByEsc = useCallback(function (e: KeyboardEvent): void {
+    if (e.key === "Escape") return handleCloseModal();
+  }, [handleCloseModal]);
+
+  useEffect(() => {
+    if (globalUIStore.isEditModalShown) {
+      document.addEventListener("keydown", (e: KeyboardEvent) => {
+        handleCloseByEsc(e);
+      });
+    } else {
+      document.removeEventListener("keydown", (e: KeyboardEvent) => {
+        handleCloseByEsc(e);
+      });
+    }
+  }, [globalUIStore.isEditModalShown, handleCloseByEsc]);
+
+  const buttonSubmitClass = canSave ? "active" : "";
+
+  if (!globalUIStore.isEditModalShown) {
     return null;
   }
   return (
-    <StyledModal onClick={onClose}>
+    <StyledModal onClick={handleCloseModal}>
       <StyledBody onClick={(event) => event.stopPropagation()}>
-        <StyledButton onClick={onClose}>
+        <StyledButton onClick={handleCloseModal}>
           <StyledCloseButton
             src={IconClose}
-            onClick={onClose}
+            onClick={handleCloseModal}
             color="rgba(255, 255, 255, 0.7)"
           />
         </StyledButton>
@@ -108,10 +133,12 @@ export default function Modal({
         </BaseText>
         {children}
         <StyledBottom>
-          <StyledCancelButton onClick={onClose}>CANCEL</StyledCancelButton>
-          <StyledSubmitButton onClick={onClose}>SAVE</StyledSubmitButton>
+          <StyledCancelButton onClick={handleCloseModal}>CANCEL</StyledCancelButton>
+          <StyledSubmitButton onClick={onSubmit} className={buttonSubmitClass} disabled={!canSave}>SAVE</StyledSubmitButton>
         </StyledBottom>
       </StyledBody>
     </StyledModal>
   );
-}
+});
+
+export default Modal;

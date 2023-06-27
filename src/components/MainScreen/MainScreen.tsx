@@ -1,21 +1,12 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@linaria/react";
 import FormTodo from "../FormTodo/FormTodo";
 import TodosList from "../TodosList/TodosList";
 import Control from "../Control/Control";
 import Delimiter from "../Delimiter/Delimiter";
-import { KEY_TODOS } from "../../utils";
-
-export interface MainProps {
-  onEditClick: (item: TodoItemProps) => void;
-}
-
-export interface TodoItemProps {
-  id: number;
-  name: string;
-  isCompleted: boolean;
-  modified_at?: number;
-}
+import { TodoItemProps } from "../../store/todos";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../store";
 
 export type TodosArray = TodoItemProps[] | [];
 
@@ -56,93 +47,31 @@ const StyledSpanBlockTwo = styled.span`
   z-index: 1;
 `;
 
-export default function Main({onEditClick}: MainProps) {
-  const [allTodos, setAllTodos] = useState<TodosArray>(
-    JSON.parse(localStorage.getItem(KEY_TODOS) || "[]")
-  );
+const Main = observer(() => {
+  const { todosStore } = useStore();
   const [todosToDisplay, setTodosToDisplay] = useState<TodosArray>([]);
-  const activeTodos = allTodos.filter(
-    (item: TodoItemProps) => item.isCompleted === false
-  );
-  const completedTodos = allTodos.filter(
-    (item: TodoItemProps) => item.isCompleted === true
-  );
 
   useEffect(() => {
-    setTodosToDisplay(allTodos);
-  }, [setTodosToDisplay, allTodos]);
-
-  useEffect(() => {
-    if (allTodos.length !== 0) {
-      localStorage.setItem(KEY_TODOS, JSON.stringify(allTodos));
-    } else {
-      localStorage.removeItem(KEY_TODOS);
-    }
-  }, [allTodos]);
-
-  const handleTodoClick = (id: number) => {
-    const newList = allTodos.map((item: TodoItemProps) => {
-      return item.id === id
-        ? { ...item, isCompleted: !item.isCompleted }
-        : item;
-    });
-    setAllTodos(newList);
-  };
-
-  const handleAddTodo = useCallback((todo: string) => {
-    try {
-      setAllTodos((todos: TodosArray) => [
-        ...todos,
-        {
-          id: new Date()[Symbol.toPrimitive]("number"),
-          name: todo,
-          isCompleted: false,
-          modified_at: new Date()[Symbol.toPrimitive]("number"),
-        },
-      ]);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-  const handleDeleteCompleted = useCallback(() => {
-    const completedTodos = allTodos.filter(
-      (item: TodoItemProps) => item.isCompleted !== true
-    );
-    setAllTodos(completedTodos);
-  }, [allTodos]);
+    setTodosToDisplay(todosStore.todosList);
+  }, [setTodosToDisplay, todosStore.todosList]);
 
   const handleFilter = (value: string) => {
     if (value === "all") {
-      setTodosToDisplay(allTodos);
+      setTodosToDisplay(todosStore.todosList);
     } else if (value === "active") {
-      setTodosToDisplay(activeTodos);
+      setTodosToDisplay(todosStore.getActiveTodos());
     } else {
-      setTodosToDisplay(completedTodos);
+      setTodosToDisplay(todosStore.getCompletedTodos());
     }
   };
-
-  useEffect(() => {
-    if (completedTodos.length !== 0) {
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Backspace") {
-          handleDeleteCompleted();
-        }
-      });
-    } else {
-      document.removeEventListener("keydown", (e) => {});
-    }
-  }, [completedTodos, handleDeleteCompleted]);
 
   return (
     <StyledMain>
       <StyledMainTodos>
-        <FormTodo onSubmit={handleAddTodo} />
+        <FormTodo />
         <Delimiter />
-        <TodosList list={todosToDisplay} onChange={handleTodoClick} onEditClick={onEditClick} />
+        <TodosList list={todosToDisplay} />
         <Control
-          list={allTodos}
-          onDelete={handleDeleteCompleted}
           onFilter={handleFilter}
         />
       </StyledMainTodos>
@@ -150,4 +79,6 @@ export default function Main({onEditClick}: MainProps) {
       <StyledSpanBlockTwo />
     </StyledMain>
   );
-}
+});
+
+export default Main;

@@ -4,14 +4,14 @@ import Icon from "../../assets/icons/checkbox.svg";
 import SVG from "react-inlinesvg";
 import { SVGProps, StyledButton } from "../FieldInput/FieldInput";
 // import Delimiter from "../Delimiter/Delimiter";
-import { TodoItemProps } from "../MainScreen/MainScreen";
 import IconEdit from '../../assets/icons/edit.svg';
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../store";
+import { TodoItemProps } from "../../store/todos";
 
 interface TodoProps {
   item: TodoItemProps;
   key?: number;
-  onChange: (value: number) => void;
-  onEditClick: (item: TodoItemProps) => void;
 }
 
 const StyledBlockItem = styled.div`
@@ -84,18 +84,24 @@ const StyledIconEdit = styled(SVG)<SVGProps>`
   height: min(30px, 6vw);
 `;
 
-const TodoItem = ({ item, onChange, onEditClick }: TodoProps) => {
+const TodoItem = observer(({ item }: TodoProps) => {
   const { id, name, isCompleted } = item;
+  const { globalUIStore, todosStore } = useStore();
+
+  const handleChange = (id: number) => {
+    todosStore.setToggleComplete(id);
+  };
+
+  const handelEditClick = () => {
+    globalUIStore.setEditModalShown(true);
+    todosStore.setEditableTodo(item);
+  };
 
   const labelClassName = isCompleted ? "completed" : "";
 
-  /* const handleEditClick = (id: number) => {
-    console.log(`EDIT`, id);
-  }; */
-
   return (
     <StyledBlockItem>
-      <StyledTodoItem onClick={() => onChange(id)}>
+      <StyledTodoItem onClick={() => handleChange(id)}>
         <StyledCheckBox>
           {isCompleted && (
             <StyledIcon src={Icon} color={"rgba(52, 201, 36, 1)"} />
@@ -104,11 +110,11 @@ const TodoItem = ({ item, onChange, onEditClick }: TodoProps) => {
         <StyledInput type="checkbox" checked={isCompleted} readOnly />
         <StyledLabel className={labelClassName}>{name}</StyledLabel>
       </StyledTodoItem>
-      <StyledButton onClick={() => onEditClick(item)} disabled={isCompleted}>
+      <StyledButton onClick={() => handelEditClick()} disabled={isCompleted}>
         <StyledIconEdit src={IconEdit} color={isCompleted ? 'lightgrey' : 'rgba(0, 0, 200, 0.5)'}  />
       </StyledButton>
     </StyledBlockItem>
   );
-};
+})
 
 export default TodoItem;

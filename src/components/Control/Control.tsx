@@ -1,13 +1,11 @@
 import React, { MouseEvent, useEffect, useState } from "react";
 import { styled } from "@linaria/react";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../store";
 import BaseText from "../BaseText/BaseText";
 import MainButton from "../MainButton/MainButton";
-import { KEY_TODOS } from "../../utils";
-import { TodoItemProps, TodosArray } from "../MainScreen/MainScreen";
 
 interface ControlProps {
-  list: TodosArray;
-  onDelete: () => void;
   onFilter: (value: string) => void;
 }
 
@@ -33,22 +31,23 @@ const controls = [
   { id: 3, name: "completed" },
 ];
 
-const Control = ({ list, onDelete, onFilter }: ControlProps) => {
+const Control = observer(({ onFilter }: ControlProps) => {
+  const { todosStore } = useStore();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isTouched, setIsTouched] = useState("all");
-  const activeTodos = list.filter(
-    (item: TodoItemProps) => item.isCompleted === false
-  );
-  const completedTodos = list.filter(
-    (item: TodoItemProps) => item.isCompleted === true
-  );
+  const countActiveTodos = todosStore.getActiveTodos().length;
+  const countCompletedTodos = todosStore.getCompletedTodos().length;
+
+  const handleDeleteCompleted = () => {
+    todosStore.setDeleteCompleted();
+  }
 
   const countTodosToComplete =
-    activeTodos?.length === 0
+    countActiveTodos === 0
       ? `no items`
-      : activeTodos.length === 1
+      : countActiveTodos === 1
       ? `1 item left`
-      : `${activeTodos.length} items left`;
+      : `${countActiveTodos} items left`;
 
   const handleFilterClick = (event: MouseEvent<HTMLButtonElement>) => {
     const currentButton = event.currentTarget;
@@ -57,16 +56,10 @@ const Control = ({ list, onDelete, onFilter }: ControlProps) => {
   };
 
   useEffect(() => {
-    completedTodos.length !== 0
+    countCompletedTodos !== 0
       ? setIsButtonDisabled(false)
       : setIsButtonDisabled(true);
-  }, [completedTodos]);
-
-  useEffect(() => {
-    if (list.length !== 0) {
-      localStorage.setItem(KEY_TODOS, JSON.stringify(list));
-    }
-  }, [list]);
+  }, [countCompletedTodos]);
 
   function capitalize(s: string): string {
     return s.toLowerCase().replace(/\b./g, function (a) {
@@ -75,11 +68,11 @@ const Control = ({ list, onDelete, onFilter }: ControlProps) => {
   }
 
   function defineDisabled(s: string): boolean {
-    return s === "all" && list.length === 0
+    return s === "all" && todosStore.todosList.length === 0
       ? true
-      : s === "active" && activeTodos.length === 0
+      : s === "active" && countActiveTodos === 0
       ? true
-      : s === "completed" && completedTodos.length === 0
+      : s === "completed" && countCompletedTodos === 0
       ? true
       : false;
   }
@@ -110,7 +103,7 @@ const Control = ({ list, onDelete, onFilter }: ControlProps) => {
         })}
       </StyledButtonBlock>
       <MainButton
-        onButtonClick={onDelete}
+        onButtonClick={handleDeleteCompleted}
         type="button"
         disabled={isButtonDisabled}
       >
@@ -120,6 +113,6 @@ const Control = ({ list, onDelete, onFilter }: ControlProps) => {
       </MainButton>
     </StyledControlBlock>
   );
-};
+});
 
 export default Control;

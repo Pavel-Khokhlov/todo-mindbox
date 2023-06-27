@@ -1,9 +1,9 @@
-import React, { FormEvent, useState } from 'react';
-import { styled } from '@linaria/react';
-import IconChevron from '../../assets/icons/chevron.svg';
-import IconAdd from '../../assets/icons/add.svg';
-import IconTask from '../../assets/icons/task.svg';
-import SVG from 'react-inlinesvg';
+import React, { FormEvent, useState } from "react";
+import { styled } from "@linaria/react";
+import IconChevron from "../../assets/icons/chevron.svg";
+import IconAdd from "../../assets/icons/add.svg";
+import IconTask from "../../assets/icons/task.svg";
+import SVG from "react-inlinesvg";
 
 export interface SVGProps {
   color?: string;
@@ -48,7 +48,7 @@ const StyledIcon = styled(SVG)<SVGProps>`
   padding: 0 10px;
   width: min(40px, 6.25vw);
   height: min(40px, 6.25vw);
-`
+`;
 
 const StyledIconChevron = styled(StyledIcon)`
   position: absolute;
@@ -58,12 +58,11 @@ const StyledIconChevron = styled(StyledIcon)`
 `;
 
 interface FieldInputProps {
-  value?: string;
-  place: 'create' | 'modal';
-  onChange: (e: FormEvent<HTMLInputElement>) => void;
-  onAddClick?: (e: FormEvent<Element>) => void;
+  place: "create" | "modal";
   placeholder: string;
-  disabled?: boolean;
+  value: string;
+  onChange: (e: FormEvent<HTMLInputElement>) => void;
+  onSubmit?: (e: FormEvent<HTMLButtonElement>) => void;
 }
 
 export const StyledButton = styled.button`
@@ -75,12 +74,13 @@ export const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  &:active, &:focus {
+  &:active,
+  &:focus {
     outline: none;
   }
 `;
 
-const FieldInput = ({value, place, onChange, onAddClick, placeholder, disabled }: FieldInputProps) => {
+const FieldInput = ({ place, placeholder, value, onChange, onSubmit }: FieldInputProps) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const currentSrc = place === "create" ? IconChevron : IconTask;
@@ -90,9 +90,13 @@ const FieldInput = ({value, place, onChange, onAddClick, placeholder, disabled }
   const handleFocus = () => {
     setIsFocused(!isFocused);
   };
+
   return (
     <StyledField className={fieldClass}>
-      <StyledIconChevron src={currentSrc} color={isFocused ? 'rgba(0, 0, 200, 0.5)' : 'rgba(0, 0, 0, 0.2)'} />
+      <StyledIconChevron
+        src={currentSrc}
+        color={isFocused ? "rgba(0, 0, 200, 0.5)" : "rgba(0, 0, 0, 0.2)"}
+      />
       <StyledInput
         onChange={onChange}
         value={value}
@@ -103,9 +107,14 @@ const FieldInput = ({value, place, onChange, onAddClick, placeholder, disabled }
         autoFocus={true}
         spellCheck={false}
       />
-      {place === "create" && <StyledButton onClick={onAddClick} disabled={disabled}>
-        <StyledIcon src={IconAdd} color={disabled ? 'lightgrey' : 'rgba(0, 0, 200, 0.5)'}  />
-      </StyledButton>}
+      {place === "create" && (
+        <StyledButton onClick={onSubmit} disabled={!value}>
+          <StyledIcon
+            src={IconAdd}
+            color={!value ? "lightgrey" : "rgba(0, 0, 200, 0.5)"}
+          />
+        </StyledButton>
+      )}
     </StyledField>
   );
 };

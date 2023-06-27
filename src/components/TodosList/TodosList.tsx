@@ -1,12 +1,13 @@
 import React from "react";
 import { styled } from "@linaria/react";
 import TodoItem from "../TodoItem/TodoItem";
-import { TodoItemProps, TodosArray } from "../MainScreen/MainScreen";
+import { TodoItemProps } from "../../store/todos";
+import { TodosArray } from "../MainScreen/MainScreen";
+import { sortList } from "../../utils";
+import { observer } from "mobx-react-lite";
 
 interface TodoListProps {
   list: TodosArray;
-  onChange: (value: number) => void;
-  onEditClick: (item: TodoItemProps) => void;
 }
 
 const StyledTodosList = styled.ul`
@@ -19,16 +20,16 @@ const StyledTodosList = styled.ul`
   box-sizing: border-box;
 `;
 
-function TodosList({list, onChange, onEditClick}: TodoListProps) {
-
+const TodosList = observer(({ list }: TodoListProps) => {
+  const sortedList = sortList(list, "id");
   return (
     <StyledTodosList>
-      {list &&
-        list.map((item: TodoItemProps) => (
-          <TodoItem key={item.id} item={item} onChange={onChange} onEditClick={onEditClick} />
+      {sortedList &&
+        sortedList.map((item: TodoItemProps) => (
+          <TodoItem key={item.id} item={item} />
         ))}
     </StyledTodosList>
   );
-}
+});
 
 export default TodosList;
