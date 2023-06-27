@@ -3,7 +3,6 @@ import { styled } from "@linaria/react";
 import Icon from "../../assets/icons/checkbox.svg";
 import SVG from "react-inlinesvg";
 import { SVGProps, StyledButton } from "../FieldInput/FieldInput";
-// import Delimiter from "../Delimiter/Delimiter";
 import IconEdit from '../../assets/icons/edit.svg';
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store";

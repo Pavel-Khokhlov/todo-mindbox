@@ -5,8 +5,7 @@ import BaseText from "../BaseText/BaseText";
 import IconClose from "../../assets/icons/close.svg";
 import { SVGProps, StyledButton } from "../FieldInput/FieldInput";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../store";
-// import { useTranslation } from "react-i18next";
+import { useStore } from "../../store"
 
 interface ModalProps {
   title: string;
@@ -27,7 +26,7 @@ const StyledModal = styled.section`
   background-color: rgba(0, 0, 0, 0.75);
   z-index: 10;
   @media screen and (max-width: 450px) {
-    align-items: start;
+    align-items: flex-start;
     padding-top: 60px;
   }
 `;
@@ -36,7 +35,7 @@ const StyledBody = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   width: min(500px, 90vw);
   min-height: 30vh;
   background: white;
