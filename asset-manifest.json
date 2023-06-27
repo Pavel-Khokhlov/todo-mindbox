@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/todo-mindbox/static/css/main.3f37170c.css",
-    "main.js": "/todo-mindbox/static/js/main.7811fee9.js",
+    "main.css": "/todo-mindbox/static/css/main.5059bc57.css",
+    "main.js": "/todo-mindbox/static/js/main.433b4bb3.js",
     "static/js/543.0c0a39c4.chunk.js": "/todo-mindbox/static/js/543.0c0a39c4.chunk.js",
     "static/media/task.svg": "/todo-mindbox/static/media/task.0e9dc596aae5b8d2f08f158e8f8a279d.svg",
     "static/media/edit.svg": "/todo-mindbox/static/media/edit.dc481c8da5dd6860c99babd9f7e93f0f.svg",
@@ -10,12 +10,12 @@
     "static/media/add.svg": "/todo-mindbox/static/media/add.50d8c93c89535601ce789313774ef1f0.svg",
     "static/media/checkbox.svg": "/todo-mindbox/static/media/checkbox.f17e823e944bb246f067f019a3a8d969.svg",
     "static/media/chevron.svg": "/todo-mindbox/static/media/chevron.1ccd5a94471b2a382fbd9a883bf698e1.svg",
-    "main.3f37170c.css.map": "/todo-mindbox/static/css/main.3f37170c.css.map",
-    "main.7811fee9.js.map": "/todo-mindbox/static/js/main.7811fee9.js.map",
+    "main.5059bc57.css.map": "/todo-mindbox/static/css/main.5059bc57.css.map",
+    "main.433b4bb3.js.map": "/todo-mindbox/static/js/main.433b4bb3.js.map",
     "543.0c0a39c4.chunk.js.map": "/todo-mindbox/static/js/543.0c0a39c4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3f37170c.css",
-    "static/js/main.7811fee9.js"
+    "static/css/main.5059bc57.css",
+    "static/js/main.433b4bb3.js"
   ]
 }
