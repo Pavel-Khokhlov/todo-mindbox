@@ -1,8 +1,10 @@
 {
   "files": {
-    "main.css": "/todo-mindbox/static/css/main.5059bc57.css",
-    "main.js": "/todo-mindbox/static/js/main.433b4bb3.js",
-    "static/js/543.0c0a39c4.chunk.js": "/todo-mindbox/static/js/543.0c0a39c4.chunk.js",
+    "main.css": "/todo-mindbox/static/css/main.8d7566b9.css",
+    "main.js": "/todo-mindbox/static/js/main.f361fabd.js",
+    "static/js/543.1247c494.chunk.js": "/todo-mindbox/static/js/543.1247c494.chunk.js",
+    "static/media/sun.svg": "/todo-mindbox/static/media/sun.fd66c6ce0df8bc075131ebcfe2fc5209.svg",
+    "static/media/moon.svg": "/todo-mindbox/static/media/moon.072156e16f0c38cd00d970aeaaffe6e3.svg",
     "static/media/task.svg": "/todo-mindbox/static/media/task.0e9dc596aae5b8d2f08f158e8f8a279d.svg",
     "static/media/edit.svg": "/todo-mindbox/static/media/edit.dc481c8da5dd6860c99babd9f7e93f0f.svg",
     "static/media/close.svg": "/todo-mindbox/static/media/close.85ff16fe0077b99704dd7f0f3d64ad31.svg",
@@ -10,12 +12,12 @@
     "static/media/add.svg": "/todo-mindbox/static/media/add.50d8c93c89535601ce789313774ef1f0.svg",
     "static/media/checkbox.svg": "/todo-mindbox/static/media/checkbox.f17e823e944bb246f067f019a3a8d969.svg",
     "static/media/chevron.svg": "/todo-mindbox/static/media/chevron.1ccd5a94471b2a382fbd9a883bf698e1.svg",
-    "main.5059bc57.css.map": "/todo-mindbox/static/css/main.5059bc57.css.map",
-    "main.433b4bb3.js.map": "/todo-mindbox/static/js/main.433b4bb3.js.map",
-    "543.0c0a39c4.chunk.js.map": "/todo-mindbox/static/js/543.0c0a39c4.chunk.js.map"
+    "main.8d7566b9.css.map": "/todo-mindbox/static/css/main.8d7566b9.css.map",
+    "main.f361fabd.js.map": "/todo-mindbox/static/js/main.f361fabd.js.map",
+    "543.1247c494.chunk.js.map": "/todo-mindbox/static/js/543.1247c494.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5059bc57.css",
-    "static/js/main.433b4bb3.js"
+    "static/css/main.8d7566b9.css",
+    "static/js/main.f361fabd.js"
   ]
 }
