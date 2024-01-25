@@ -89,11 +89,11 @@ const Control = observer(({ onFilter }: ControlProps) => {
           return (
             <MainButton
               key={i.id}
-              onButtonClick={handleFilterClick}
-              type="button"
               id={i.name}
-              disabled={defineDisabled(i.name)}
+              type="button"
               className={isActiveClassName(i.name)}
+              disabled={defineDisabled(i.name)}
+              onButtonClick={handleFilterClick}
             >
               <BaseText level={"p"} className="button">
                 {capitalize(i.name)}
@@ -103,9 +103,9 @@ const Control = observer(({ onFilter }: ControlProps) => {
         })}
       </StyledButtonBlock>
       <MainButton
-        onButtonClick={handleDeleteCompleted}
         type="button"
         disabled={isButtonDisabled}
+        onButtonClick={handleDeleteCompleted}
       >
         <BaseText level={"p"} className="button">
           Clear completed

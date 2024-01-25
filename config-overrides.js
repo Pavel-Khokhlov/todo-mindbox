@@ -1,4 +1,3 @@
-/* eslint-disable  react-hooks/rules-of-hooks */
 const { useBabelRc, override, addWebpackModuleRule } = require('customize-cra')
 
 module.exports = override(

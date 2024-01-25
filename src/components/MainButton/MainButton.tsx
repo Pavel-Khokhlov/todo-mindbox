@@ -3,11 +3,11 @@ import { styled } from '@linaria/react';
 
 export type MainButtonProps = {
   key?: number;
+  id?: string;
   type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
-  id?: string;
-  children?: ReactNode;
   className?: string;
+  children?: ReactNode;
   onButtonClick: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -30,12 +30,12 @@ const StyledButton = styled.button`
 `;
 
 const MainButton = ({
-  type,
-  onButtonClick,
   id,
-  className,
+  type,
   disabled,
+  className,
   children,
+  onButtonClick,
 }: MainButtonProps) => {
   return (
     <StyledButton type={type} id={id} className={className} onClick={onButtonClick} disabled={disabled}>
