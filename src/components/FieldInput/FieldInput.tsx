@@ -4,6 +4,8 @@ import IconChevron from "../../assets/icons/chevron.svg";
 import IconAdd from "../../assets/icons/add.svg";
 import IconTask from "../../assets/icons/task.svg";
 import SVG from "react-inlinesvg";
+import { useStore } from "../../store";
+import { observer } from "mobx-react-lite";
 
 export interface SVGProps {
   color?: string;
@@ -32,8 +34,16 @@ export const StyledInput = styled.input`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  &::placeholder {
-    color: rgba(0, 0, 0, 0.2);
+  background: transparent;
+  &.dark {
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+  &.light {
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.2);
+    }
   }
   &.modal {
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -63,6 +73,8 @@ interface FieldInputProps {
   value: string;
   onChange: (e: FormEvent<HTMLInputElement>) => void;
   onSubmit?: (e: FormEvent<HTMLButtonElement>) => void;
+  onBlur?: () => void;
+  isFocused?: boolean;
 }
 
 export const StyledButton = styled.button`
@@ -80,43 +92,55 @@ export const StyledButton = styled.button`
   }
 `;
 
-const FieldInput = ({ place, placeholder, value, onChange, onSubmit }: FieldInputProps) => {
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+const FieldInput = observer(
+  ({ place, placeholder, value, onChange, onSubmit, onBlur, isFocused }: FieldInputProps) => {
+    const { globalUIStore } = useStore();
 
-  const currentSrc = place === "create" ? IconChevron : IconTask;
-  const fieldClass = place;
-  const inputClass = isFocused && place === "modal" ? `focus ${place}` : place;
+    const currentSrc = place === "create" ? IconChevron : IconTask;
+    const fieldClass = place;
+    const inputClass = `${globalUIStore.theme.name} ${
+      isFocused && place === "modal" ? `focus ${place}` : place
+    }`;
 
-  const handleFocus = () => {
-    setIsFocused(!isFocused);
-  };
-
-  return (
-    <StyledField className={fieldClass}>
-      <StyledIconChevron
-        src={currentSrc}
-        color={isFocused ? "rgba(0, 0, 200, 0.5)" : "rgba(0, 0, 0, 0.2)"}
-      />
-      <StyledInput
-        onChange={onChange}
-        value={value}
-        placeholder={placeholder}
-        onFocus={handleFocus}
-        onBlur={handleFocus}
-        className={inputClass}
-        autoFocus={true}
-        spellCheck={false}
-      />
-      {place === "create" && (
-        <StyledButton onClick={onSubmit} disabled={!value}>
-          <StyledIcon
-            src={IconAdd}
-            color={!value ? "lightgrey" : "rgba(0, 0, 200, 0.5)"}
-          />
-        </StyledButton>
-      )}
-    </StyledField>
-  );
-};
+    return (
+      <StyledField
+        className={fieldClass}
+        style={{ color: globalUIStore.theme.mainBodyColor }}
+      >
+        <StyledIconChevron
+          src={currentSrc}
+          color={
+            !isFocused
+              ? globalUIStore.theme.disabledColor
+              : globalUIStore.theme.infoColor
+          }
+        />
+        <StyledInput
+          style={{ color: globalUIStore.theme.textInputColor }}
+          onChange={onChange}
+          value={value}
+          placeholder={placeholder}
+          onFocus={onBlur}
+          onBlur={onBlur}
+          className={inputClass}
+          autoFocus={true}
+          spellCheck={false}
+        />
+        {place === "create" && (
+          <StyledButton onClick={onSubmit} disabled={!value}>
+            <StyledIcon
+              src={IconAdd}
+              color={
+                !value
+                  ? globalUIStore.theme.disabledColor
+                  : globalUIStore.theme.infoColor
+              }
+            />
+          </StyledButton>
+        )}
+      </StyledField>
+    );
+  }
+);
 
 export default FieldInput;

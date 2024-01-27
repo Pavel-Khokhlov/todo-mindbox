@@ -32,7 +32,7 @@ const controls = [
 ];
 
 const Control = observer(({ onFilter }: ControlProps) => {
-  const { todosStore } = useStore();
+  const { todosStore, globalUIStore } = useStore();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isTouched, setIsTouched] = useState("all");
   const countActiveTodos = todosStore.getActiveTodos().length;
@@ -40,7 +40,7 @@ const Control = observer(({ onFilter }: ControlProps) => {
 
   const handleDeleteCompleted = () => {
     todosStore.setDeleteCompleted();
-  }
+  };
 
   const countTodosToComplete =
     countActiveTodos === 0
@@ -77,13 +77,15 @@ const Control = observer(({ onFilter }: ControlProps) => {
       : false;
   }
 
-  const isActiveClassName = (button: string): string => {
-    return button === isTouched && !defineDisabled(button) ? "active" : "";
-  };
+  /* const isActiveClassName = (button: string): string => {
+    return backgroundColor: button === isTouched && !defineDisabled(button) ? globalUIStore.theme.textColor : globalUIStore.theme.textColor;
+  }; */
 
   return (
     <StyledControlBlock>
-      <BaseText level={"p"}>{countTodosToComplete}</BaseText>
+      <BaseText level={"p"} style={{ color: globalUIStore.theme.textColor }}>
+        {countTodosToComplete}
+      </BaseText>
       <StyledButtonBlock>
         {controls.map((i) => {
           return (
@@ -91,11 +93,27 @@ const Control = observer(({ onFilter }: ControlProps) => {
               key={i.id}
               id={i.name}
               type="button"
-              className={isActiveClassName(i.name)}
+              // className={isActiveClassName(i.name)}
               disabled={defineDisabled(i.name)}
               onButtonClick={handleFilterClick}
+              style={{
+                backgroundColor:
+                  i.name === isTouched && !defineDisabled(i.name)
+                    ? globalUIStore.theme.infoColor
+                    : globalUIStore.theme.transparent,
+              }}
             >
-              <BaseText level={"p"} className="button">
+              <BaseText
+                level={"p"}
+                className="button"
+                style={{
+                  color: defineDisabled(i.name)
+                    ? globalUIStore.theme.textDisableColor
+                    : i.name === isTouched
+                    ? globalUIStore.theme.secondaryColor
+                    : globalUIStore.theme.textColor,
+                }}
+              >
                 {capitalize(i.name)}
               </BaseText>
             </MainButton>
@@ -107,7 +125,15 @@ const Control = observer(({ onFilter }: ControlProps) => {
         disabled={isButtonDisabled}
         onButtonClick={handleDeleteCompleted}
       >
-        <BaseText level={"p"} className="button">
+        <BaseText
+          level={"p"}
+          className="button"
+          style={{
+            color: isButtonDisabled
+              ? globalUIStore.theme.textDisableColor
+              : globalUIStore.theme.textColor,
+          }}
+        >
           Clear completed
         </BaseText>
       </MainButton>

@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { styled } from '@linaria/react';
+import { CSSProperties, styled } from '@linaria/react';
 
 export type MainButtonProps = {
   key?: number;
@@ -7,6 +7,7 @@ export type MainButtonProps = {
   type: 'button' | 'submit' | 'reset';
   disabled?: boolean;
   className?: string;
+  style?: CSSProperties;
   children?: ReactNode;
   onButtonClick: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -23,10 +24,6 @@ const StyledButton = styled.button`
   border-radius: 5px;
   padding: 0 5px;
   cursor: pointer;
-  &.active {
-    background: rgba(0, 0, 200, 0.5);
-    color: white;
-  }
 `;
 
 const MainButton = ({
@@ -34,11 +31,12 @@ const MainButton = ({
   type,
   disabled,
   className,
+  style,
   children,
   onButtonClick,
 }: MainButtonProps) => {
   return (
-    <StyledButton type={type} id={id} className={className} onClick={onButtonClick} disabled={disabled}>
+    <StyledButton type={type} id={id} className={className} onClick={onButtonClick} disabled={disabled} style={style}>
       {children}
     </StyledButton>
   );

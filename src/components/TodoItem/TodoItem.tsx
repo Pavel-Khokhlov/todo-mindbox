@@ -3,7 +3,7 @@ import { styled } from "@linaria/react";
 import Icon from "../../assets/icons/checkbox.svg";
 import SVG from "react-inlinesvg";
 import { SVGProps, StyledButton } from "../FieldInput/FieldInput";
-import IconEdit from '../../assets/icons/edit.svg';
+import IconEdit from "../../assets/icons/edit.svg";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store";
 import { TodoItemProps } from "../../store/todos";
@@ -23,7 +23,7 @@ const StyledBlockItem = styled.div`
 `;
 
 const StyledTodoItem = styled.div`
-  width: min(700px,85%);
+  width: min(700px, 85%);
   height: min(80px, 12.5vw);
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@ const StyledCheckBox = styled.div`
   height: min(30px, 6.25vw);
   margin: 0 10px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -59,7 +59,6 @@ const StyledInput = styled.input`
 const StyledLabel = styled.label`
   font-size: min(25px, 5vw);
   font-weight: 400;
-  color: black;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -101,19 +100,27 @@ const TodoItem = observer(({ item }: TodoProps) => {
   return (
     <StyledBlockItem>
       <StyledTodoItem onClick={() => handleChange(id)}>
-        <StyledCheckBox>
+        <StyledCheckBox style={{ borderColor: globalUIStore.theme.disabledColor }}>
           {isCompleted && (
-            <StyledIcon src={Icon} color={"rgba(52, 201, 36, 1)"} />
+            <StyledIcon src={Icon} color={globalUIStore.theme.successColor} />
           )}
         </StyledCheckBox>
         <StyledInput type="checkbox" checked={isCompleted} readOnly />
-        <StyledLabel className={labelClassName}>{name}</StyledLabel>
+        <StyledLabel
+          className={labelClassName}
+          style={{ color: !isCompleted ? globalUIStore.theme.textColor : globalUIStore.theme.disabledColor }}
+        >
+          {name}
+        </StyledLabel>
       </StyledTodoItem>
       <StyledButton onClick={() => handelEditClick()} disabled={isCompleted}>
-        <StyledIconEdit src={IconEdit} color={isCompleted ? 'lightgrey' : 'rgba(0, 0, 200, 0.5)'}  />
+        <StyledIconEdit
+          src={IconEdit}
+          color={isCompleted ? globalUIStore.theme.disabledColor : globalUIStore.theme.infoColor}
+        />
       </StyledButton>
     </StyledBlockItem>
   );
-})
+});
 
 export default TodoItem;

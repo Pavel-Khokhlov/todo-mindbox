@@ -1,12 +1,12 @@
 import {makeAutoObservable} from 'mobx';
 import {RootStore} from './index';
-import { TODO_THEME, Theme } from '../components/Header/Header';
+import { TODO_THEME, Theme, ThemeName, ThemeProps, themes } from '../styles/themes';
 
 export class GlobalUIStore {
   rootStore: RootStore;
 
   isEditModalShown: boolean = false;
-  isLightTheme = this.initialTheme();
+  theme: ThemeProps = this.initialTheme();
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {rootStore: false});
@@ -19,15 +19,15 @@ export class GlobalUIStore {
     if (!value) {
       localStorage.setItem(TODO_THEME, Theme.LightTheme);
       root?.setAttribute('data-theme', Theme.LightTheme)
-      return true;
+      return themes[Theme.LightTheme];
     } else {
       root?.setAttribute('data-theme', value === "light" ? Theme.LightTheme : Theme.DarkTheme)
-      return value === Theme.LightTheme ? true : false;
+      return themes[value === Theme.LightTheme ? Theme.LightTheme : Theme.DarkTheme];
     }
   }
 
-  setIsLightTheme(value: boolean) {
-    this.isLightTheme = value;
+  setTheme(value: ThemeName) {
+    this.theme = themes[value];
   }
 
   setEditModalShown(value: boolean) {
