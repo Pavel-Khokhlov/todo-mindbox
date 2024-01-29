@@ -5,10 +5,6 @@ import { useStore } from "../../store";
 import BaseText from "../BaseText/BaseText";
 import MainButton from "../MainButton/MainButton";
 
-interface ControlProps {
-  onFilter: (value: string) => void;
-}
-
 const StyledControlBlock = styled.section`
   width: 100%;
   height: min(50px, 10vw);
@@ -31,12 +27,11 @@ const controls = [
   { id: 3, name: "completed" },
 ];
 
-const Control = observer(({ onFilter }: ControlProps) => {
+const Control = observer(() => {
   const { todosStore, globalUIStore } = useStore();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [isTouched, setIsTouched] = useState("all");
-  const countActiveTodos = todosStore.getActiveTodos().length;
-  const countCompletedTodos = todosStore.getCompletedTodos().length;
+  const countActiveTodos = todosStore.activeTodos.length;
+  const countCompletedTodos = todosStore.completedTodos.length;
 
   const handleDeleteCompleted = () => {
     todosStore.setDeleteCompleted();
@@ -51,8 +46,7 @@ const Control = observer(({ onFilter }: ControlProps) => {
 
   const handleFilterClick = (event: MouseEvent<HTMLButtonElement>) => {
     const currentButton = event.currentTarget;
-    setIsTouched(currentButton.id);
-    onFilter(currentButton.id);
+    todosStore.setFilterValue(currentButton.id);
   };
 
   useEffect(() => {
@@ -77,9 +71,7 @@ const Control = observer(({ onFilter }: ControlProps) => {
       : false;
   }
 
-  /* const isActiveClassName = (button: string): string => {
-    return backgroundColor: button === isTouched && !defineDisabled(button) ? globalUIStore.theme.textColor : globalUIStore.theme.textColor;
-  }; */
+  const activeButton = todosStore.filterValue;
 
   return (
     <StyledControlBlock>
@@ -98,7 +90,7 @@ const Control = observer(({ onFilter }: ControlProps) => {
               onButtonClick={handleFilterClick}
               style={{
                 backgroundColor:
-                  i.name === isTouched && !defineDisabled(i.name)
+                  i.name === activeButton && !defineDisabled(i.name)
                     ? globalUIStore.theme.infoColor
                     : globalUIStore.theme.transparent,
               }}
@@ -109,7 +101,7 @@ const Control = observer(({ onFilter }: ControlProps) => {
                 style={{
                   color: defineDisabled(i.name)
                     ? globalUIStore.theme.textDisableColor
-                    : i.name === isTouched
+                    : i.name === activeButton
                     ? globalUIStore.theme.secondaryColor
                     : globalUIStore.theme.textColor,
                 }}

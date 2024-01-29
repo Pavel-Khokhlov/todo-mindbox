@@ -8,6 +8,7 @@ export interface ThemeProps {
   brandColor: string;
   primaryColor: string;
   secondaryColor: string;
+  greyColor: string;
   successColor: string;
   infoColor: string;
   errorColor: string;
@@ -37,8 +38,9 @@ export const themes = {
     name: Theme.LightTheme,
     transparent: "rgba(0, 0, 0, 0)",
     brandColor: "rgb(0, 0, 0)",
-    primaryColor: "rgb(0, 0, 0)",
+    primaryColor: "rgba(0, 0, 0, 1)",
     secondaryColor: "rgba(255, 255, 255, 1)",
+    greyColor: "rgba(0, 0, 0, 0.3)",
     successColor: "rgba(10, 150, 10, 1)",
     infoColor: "rgba(0, 0, 200, 0.5)",
     errorColor: "rgb(255, 0, 0)",
@@ -61,8 +63,9 @@ export const themes = {
     name: Theme.DarkTheme,
     transparent: "rgba(0, 0, 0, 0)",
     brandColor: "rgb(0, 0, 0)",
-    primaryColor: "rgb(0, 0, 0)",
+    primaryColor: "rgba(0, 0, 0, 1)",
     secondaryColor: "rgba(255, 255, 255, 1)",
+    greyColor: "rgba(0, 0, 0, 0.3)",
     successColor: "rgb(0, 255, 0)",
     infoColor: "rgba(50, 170, 255, 1)",
     errorColor: "rgb(255, 0, 0)",

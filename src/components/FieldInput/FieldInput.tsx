@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent } from "react";
 import { styled } from "@linaria/react";
 import IconChevron from "../../assets/icons/chevron.svg";
 import IconAdd from "../../assets/icons/add.svg";
@@ -93,7 +93,15 @@ export const StyledButton = styled.button`
 `;
 
 const FieldInput = observer(
-  ({ place, placeholder, value, onChange, onSubmit, onBlur, isFocused }: FieldInputProps) => {
+  ({
+    place,
+    placeholder,
+    value,
+    onChange,
+    onSubmit,
+    onBlur,
+    isFocused,
+  }: FieldInputProps) => {
     const { globalUIStore } = useStore();
 
     const currentSrc = place === "create" ? IconChevron : IconTask;
@@ -101,22 +109,43 @@ const FieldInput = observer(
     const inputClass = `${globalUIStore.theme.name} ${
       isFocused && place === "modal" ? `focus ${place}` : place
     }`;
+    const chevronColor = () => {
+      let color: string;
+      if (place === "modal") {
+        color = globalUIStore.theme.greyColor;
+      } else {
+        color = globalUIStore.theme.disabledColor;
+      }
+      if (isFocused) color = globalUIStore.theme.infoColor;
+      return color;
+    };
+
+    const inputBottomColor = () => {
+      if (place === "modal") {
+        if (isFocused) {
+          return globalUIStore.theme.infoColor;
+        } else {
+          return globalUIStore.theme.greyColor;
+        }
+      }
+    };
+
+    const inputStyle = {
+      color:
+        place === "modal"
+          ? globalUIStore.theme.primaryColor
+          : globalUIStore.theme.textInputColor,
+      borderBottom: `1px solid ${inputBottomColor()}`,
+    };
 
     return (
       <StyledField
         className={fieldClass}
         style={{ color: globalUIStore.theme.mainBodyColor }}
       >
-        <StyledIconChevron
-          src={currentSrc}
-          color={
-            !isFocused
-              ? globalUIStore.theme.disabledColor
-              : globalUIStore.theme.infoColor
-          }
-        />
+        <StyledIconChevron src={currentSrc} color={chevronColor()} />
         <StyledInput
-          style={{ color: globalUIStore.theme.textInputColor }}
+          style={inputStyle}
           onChange={onChange}
           value={value}
           placeholder={placeholder}

@@ -32,6 +32,7 @@ const StyledInfoBlock = styled.div`
 const App = observer(() => {
   const { globalUIStore, todosStore } = useStore();
   const [value, setValue] = useState<string>("");
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const canSave = todosStore.editableTodo?.name !== value;
 
@@ -60,12 +61,16 @@ const App = observer(() => {
   }, [todosStore.todosList]);
 
   useEffect(() => {
-    if (todosStore.editableTodo) {
+    if (todosStore.editableTodo && globalUIStore.isEditModalShown) {
       setValue(todosStore.editableTodo.name);
     } else {
       setValue("");
     }
-  }, [todosStore.editableTodo]);
+  }, [globalUIStore.isEditModalShown, todosStore.editableTodo]);
+
+  const handleFocus = () => {
+    setIsFocused(!isFocused);
+  };
 
   return (
     <StyledApp>
@@ -82,6 +87,8 @@ const App = observer(() => {
           place="modal"
           placeholder="Please, edit the task!"
           onChange={handleChangeValue}
+          onBlur={handleFocus}
+          isFocused={isFocused}
         />
         <StyledInfoBlock>
           <BaseText level={"p"}>Created at:</BaseText>

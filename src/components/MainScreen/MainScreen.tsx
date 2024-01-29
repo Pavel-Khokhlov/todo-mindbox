@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { styled } from "@linaria/react";
 import FormTodo from "../FormTodo/FormTodo";
 import TodosList from "../TodosList/TodosList";
@@ -44,7 +44,7 @@ const StyledSpanBlockTwo = styled.span`
 
 const Main = observer(() => {
   const { todosStore, globalUIStore } = useStore();
-  const [todosToDisplay, setTodosToDisplay] = useState<TodosArray>([]);
+  /* const [todosToDisplay, setTodosToDisplay] = useState<TodosArray>([]);
 
   useEffect(() => {
     setTodosToDisplay(todosStore.todosList);
@@ -58,7 +58,7 @@ const Main = observer(() => {
     } else {
       setTodosToDisplay(todosStore.getCompletedTodos());
     }
-  };
+  }; */
 
   const mainStyle = {
     backgroundColor: globalUIStore.theme.mainBodyColor,
@@ -71,8 +71,8 @@ const Main = observer(() => {
     >
       <StyledMainTodos style={mainStyle}>
         <FormTodo />
-        <TodosList list={todosToDisplay} />
-        <Control onFilter={handleFilter} />
+        <TodosList list={todosStore.getActualTodos()} />
+        <Control />
       </StyledMainTodos>
       <StyledSpanBlockOne style={mainStyle} />
       <StyledSpanBlockTwo style={mainStyle} />

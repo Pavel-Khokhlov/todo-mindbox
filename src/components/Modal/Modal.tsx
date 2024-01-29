@@ -5,7 +5,7 @@ import BaseText from "../BaseText/BaseText";
 import IconClose from "../../assets/icons/close.svg";
 import { SVGProps, StyledButton } from "../FieldInput/FieldInput";
 import { observer } from "mobx-react-lite";
-import { useStore } from "../../store"
+import { useStore } from "../../store";
 
 interface ModalProps {
   title: string;
@@ -70,23 +70,7 @@ const StyledButtonCommon = styled.button`
   background: none;
   border-radius: min(8px, 2vw);
   cursor: pointer;
-`;
-
-const StyledCancelButton = styled(StyledButtonCommon)`
-  color: rgba(0, 0, 200, 0.5);
-  border: 1px solid rgba(0, 0, 200, 0.5);
-`;
-
-const StyledSubmitButton = styled(StyledButtonCommon)`
-  color: lightgray;
-  border: 1px solid lightgray;
-  cursor: pointer;
   transition: all 0.5s ease;
-  &.active {
-    color: white;
-    border: 1px solid rgba(0, 0, 200, 0.5);
-    background-color: rgba(0, 0, 200, 0.5);
-  }
 `;
 
 const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
@@ -94,11 +78,14 @@ const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
 
   const handleCloseModal = useCallback(() => {
     globalUIStore.setEditModalShown(false);
-  }, [globalUIStore])
+  }, [globalUIStore]);
 
-  const handleCloseByEsc = useCallback(function (e: KeyboardEvent): void {
-    if (e.key === "Escape") return handleCloseModal();
-  }, [handleCloseModal]);
+  const handleCloseByEsc = useCallback(
+    function (e: KeyboardEvent): void {
+      if (e.key === "Escape") return handleCloseModal();
+    },
+    [handleCloseModal]
+  );
 
   useEffect(() => {
     if (globalUIStore.isEditModalShown) {
@@ -112,11 +99,27 @@ const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
     }
   }, [globalUIStore.isEditModalShown, handleCloseByEsc]);
 
-  const buttonSubmitClass = canSave ? "active" : "";
-
   if (!globalUIStore.isEditModalShown) {
     return null;
   }
+  const buttonCancelStyle = {
+    color: globalUIStore.theme.infoColor,
+    border: `1px solid ${globalUIStore.theme.infoColor}`,
+  };
+  const buttonSubmitStyle = {
+    cursor: canSave ? "pointer" : "none",
+    color: canSave
+      ? globalUIStore.theme.secondaryColor
+      : globalUIStore.theme.greyColor,
+    border: `1px solid ${
+      canSave
+        ? globalUIStore.theme.infoColor
+        : globalUIStore.theme.greyColor
+    }`,
+    backgroundColor: canSave
+      ? globalUIStore.theme.infoColor
+      : globalUIStore.theme.transparent,
+  };
   return (
     <StyledModal onClick={handleCloseModal}>
       <StyledBody onClick={(event) => event.stopPropagation()}>
@@ -124,7 +127,7 @@ const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
           <StyledCloseButton
             src={IconClose}
             onClick={handleCloseModal}
-            color="rgba(255, 255, 255, 0.7)"
+            color={globalUIStore.theme.secondaryColor}
           />
         </StyledButton>
         <BaseText level={3} className="modal">
@@ -132,8 +135,19 @@ const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
         </BaseText>
         {children}
         <StyledBottom>
-          <StyledCancelButton onClick={handleCloseModal}>CANCEL</StyledCancelButton>
-          <StyledSubmitButton onClick={onSubmit} className={buttonSubmitClass} disabled={!canSave}>SAVE</StyledSubmitButton>
+          <StyledButtonCommon
+            onClick={handleCloseModal}
+            style={buttonCancelStyle}
+          >
+            CANCEL
+          </StyledButtonCommon>
+          <StyledButtonCommon
+            onClick={onSubmit}
+            style={buttonSubmitStyle}
+            disabled={!canSave}
+          >
+            SAVE
+          </StyledButtonCommon>
         </StyledBottom>
       </StyledBody>
     </StyledModal>

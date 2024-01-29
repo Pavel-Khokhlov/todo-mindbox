@@ -2,6 +2,8 @@ import { makeAutoObservable } from "mobx";
 import { RootStore } from "./index";
 import { KEY_TODOS } from "../utils";
 
+export type FilterProps = 'all' | 'active' | 'completed';
+
 export interface TodoItemProps {
   id: number;
   name: string;
@@ -18,22 +20,33 @@ export class TodosStore {
 
   todosList: TodoItemProps[] | [] = localTodos;
   editableTodo: TodoItemProps | null = null;
+  filterValue: string = 'all';
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, { rootStore: false });
     this.rootStore = rootStore;
   }
 
-  getActiveTodos() {
+  get activeTodos() {
     return this.todosList.filter(
       (item: TodoItemProps) => item.isCompleted === false
     );
   }
 
-  getCompletedTodos() {
+  get completedTodos() {
     return this.todosList.filter(
       (item: TodoItemProps) => item.isCompleted === true
     );
+  }
+
+  getActualTodos() {
+    if (this.filterValue === 'completed') {
+      return this.completedTodos
+    }
+    if (this.filterValue === 'active') {
+      return this.activeTodos
+    }
+    return this.todosList
   }
 
   setTodosList(array: TodoItemProps[]) {
@@ -74,7 +87,14 @@ export class TodosStore {
         : item;
     });
   }
+  
   setDeleteCompleted() {
-    this.todosList = this.getActiveTodos();
+    this.todosList = this.activeTodos;
+    this.filterValue = 'all';
+  }
+
+  setFilterValue(value: string) {
+    this.filterValue = value;
+    this.getActualTodos();
   }
 }
