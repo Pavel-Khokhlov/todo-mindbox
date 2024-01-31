@@ -40,6 +40,9 @@ const StyledText = styled.h1`
     font-weight: 700;
     margin-bottom: min(30px, 5vw);
   }
+  &.locale {
+    font-size: min(22px, 5vw);
+  }
 `;
 
 const BaseText = ({

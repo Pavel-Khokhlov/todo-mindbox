@@ -1,4 +1,4 @@
-export const TODO_THEME = "todo_theme";
+export const TODO_THEME: string = "todo_theme";
 
 export type ThemeName = "light" | "dark";
 
@@ -28,14 +28,14 @@ export interface ThemeProps {
   mainBodyColor: string;
 }
 
-export enum Theme {
-  LightTheme = "light",
-  DarkTheme = "dark",
+export enum THEME {
+  LIGHTTHEME = "light",
+  DARKTHEME = "dark",
 }
 
 export const themes = {
   light: {
-    name: Theme.LightTheme,
+    name: THEME.LIGHTTHEME,
     transparent: "rgba(0, 0, 0, 0)",
     brandColor: "rgb(0, 0, 0)",
     primaryColor: "rgba(0, 0, 0, 1)",
@@ -60,7 +60,7 @@ export const themes = {
     mainBodyColor: "rgba(245, 245, 245, 1)",
   },
   dark: {
-    name: Theme.DarkTheme,
+    name: THEME.DARKTHEME,
     transparent: "rgba(0, 0, 0, 0)",
     brandColor: "rgb(0, 0, 0)",
     primaryColor: "rgba(0, 0, 0, 1)",

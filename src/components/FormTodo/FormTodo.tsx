@@ -39,7 +39,7 @@ const FormTodo = observer(() => {
       <StyledForm>
         <FieldInput
           place="create"
-          placeholder="What needs to be done?"
+          placeholder="main_input_plh"
           value={value}
           onChange={handleChangeValue}
           onSubmit={handleSubmit}

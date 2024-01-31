@@ -1,9 +1,11 @@
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { MouseEvent, useContext, useEffect, useState } from "react";
 import { styled } from "@linaria/react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store";
 import BaseText from "../BaseText/BaseText";
 import MainButton from "../MainButton/MainButton";
+
+import { TranslationContext } from "../../context/TranslationContext";
 
 const StyledControlBlock = styled.section`
   width: 100%;
@@ -29,6 +31,7 @@ const controls = [
 
 const Control = observer(() => {
   const { todosStore, globalUIStore } = useStore();
+  const t = useContext(TranslationContext);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const countActiveTodos = todosStore.activeTodos.length;
   const countCompletedTodos = todosStore.completedTodos.length;
@@ -37,12 +40,14 @@ const Control = observer(() => {
     todosStore.setDeleteCompleted();
   };
 
-  const countTodosToComplete =
+  /* const countTodosToComplete =
     countActiveTodos === 0
       ? `no items`
       : countActiveTodos === 1
       ? `1 item left`
-      : `${countActiveTodos} items left`;
+      : `${countActiveTodos} items left`; */
+
+      const countTodosToComplete = `${todosStore.activeTodos.length} / ${todosStore.todosList.length}`
 
   const handleFilterClick = (event: MouseEvent<HTMLButtonElement>) => {
     const currentButton = event.currentTarget;
@@ -55,11 +60,11 @@ const Control = observer(() => {
       : setIsButtonDisabled(true);
   }, [countCompletedTodos]);
 
-  function capitalize(s: string): string {
+  /* function capitalize(s: string): string {
     return s.toLowerCase().replace(/\b./g, function (a) {
       return a.toUpperCase();
     });
-  }
+  } */
 
   function defineDisabled(s: string): boolean {
     return s === "all" && todosStore.todosList.length === 0
@@ -106,7 +111,7 @@ const Control = observer(() => {
                     : globalUIStore.theme.textColor,
                 }}
               >
-                {capitalize(i.name)}
+                {t[`controls_${i.name}` as keyof typeof t]}
               </BaseText>
             </MainButton>
           );
@@ -126,7 +131,7 @@ const Control = observer(() => {
               : globalUIStore.theme.textColor,
           }}
         >
-          Clear completed
+          {t.controls_clear as keyof typeof t}
         </BaseText>
       </MainButton>
     </StyledControlBlock>

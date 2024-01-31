@@ -70,6 +70,7 @@ export class TodosStore {
         ? { ...item, isCompleted: !item.isCompleted }
         : item;
     });
+    if (this.completedTodos.length === 0 || this.activeTodos.length === 0) this.filterValue = 'all';
   }
 
   setEditableTodo(item: TodoItemProps) {
@@ -87,7 +88,7 @@ export class TodosStore {
         : item;
     });
   }
-  
+
   setDeleteCompleted() {
     this.todosList = this.activeTodos;
     this.filterValue = 'all';

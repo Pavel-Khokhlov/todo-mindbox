@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect } from "react";
+import React, { ReactNode, useCallback, useContext, useEffect } from "react";
 import SVG from "react-inlinesvg";
 import { styled } from "@linaria/react";
 import BaseText from "../BaseText/BaseText";
@@ -6,6 +6,8 @@ import IconClose from "../../assets/icons/close.svg";
 import { SVGProps, StyledButton } from "../FieldInput/FieldInput";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store";
+
+import { TranslationContext } from "../../context/TranslationContext";
 
 interface ModalProps {
   title: string;
@@ -27,7 +29,7 @@ const StyledModal = styled.section`
   z-index: 10;
   @media screen and (max-width: 450px) {
     align-items: flex-start;
-    padding-top: 60px;
+    padding-top: 120px;
   }
 `;
 
@@ -75,6 +77,7 @@ const StyledButtonCommon = styled.button`
 
 const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
   const { globalUIStore } = useStore();
+  const t = useContext(TranslationContext);
 
   const handleCloseModal = useCallback(() => {
     globalUIStore.setEditModalShown(false);
@@ -112,9 +115,7 @@ const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
       ? globalUIStore.theme.secondaryColor
       : globalUIStore.theme.greyColor,
     border: `1px solid ${
-      canSave
-        ? globalUIStore.theme.infoColor
-        : globalUIStore.theme.greyColor
+      canSave ? globalUIStore.theme.infoColor : globalUIStore.theme.greyColor
     }`,
     backgroundColor: canSave
       ? globalUIStore.theme.infoColor
@@ -130,8 +131,8 @@ const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
             color={globalUIStore.theme.secondaryColor}
           />
         </StyledButton>
-        <BaseText level={3} className="modal">
-          {title}
+        <BaseText level={2} className="modal">
+          {t[title as keyof typeof t]}
         </BaseText>
         {children}
         <StyledBottom>
@@ -139,14 +140,14 @@ const Modal = observer(({ title, children, canSave, onSubmit }: ModalProps) => {
             onClick={handleCloseModal}
             style={buttonCancelStyle}
           >
-            CANCEL
+            {t.modal_btn_cancel}
           </StyledButtonCommon>
           <StyledButtonCommon
             onClick={onSubmit}
             style={buttonSubmitStyle}
             disabled={!canSave}
           >
-            SAVE
+            {t.modal_btn_save}
           </StyledButtonCommon>
         </StyledBottom>
       </StyledBody>

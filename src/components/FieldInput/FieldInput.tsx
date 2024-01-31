@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useContext } from "react";
 import { styled } from "@linaria/react";
 import IconChevron from "../../assets/icons/chevron.svg";
 import IconAdd from "../../assets/icons/add.svg";
@@ -6,6 +6,7 @@ import IconTask from "../../assets/icons/task.svg";
 import SVG from "react-inlinesvg";
 import { useStore } from "../../store";
 import { observer } from "mobx-react-lite";
+import { TranslationContext } from "../../context/TranslationContext";
 
 export interface SVGProps {
   color?: string;
@@ -37,12 +38,12 @@ export const StyledInput = styled.input`
   background: transparent;
   &.dark {
     &::placeholder {
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(0, 0, 0, 0.3);
     }
   }
   &.light {
     &::placeholder {
-      color: rgba(0, 0, 0, 0.2);
+      color: rgba(0, 0, 0, 0.3);
     }
   }
   &.modal {
@@ -50,6 +51,13 @@ export const StyledInput = styled.input`
     height: min(70px, 10vw);
     &.focus {
       border-bottom: 1px solid rgba(0, 0, 200, 0.5);
+    }
+  }
+  &.create {
+    &.dark {
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
     }
   }
 `;
@@ -103,6 +111,7 @@ const FieldInput = observer(
     isFocused,
   }: FieldInputProps) => {
     const { globalUIStore } = useStore();
+    const t = useContext(TranslationContext);
 
     const currentSrc = place === "create" ? IconChevron : IconTask;
     const fieldClass = place;
@@ -148,7 +157,7 @@ const FieldInput = observer(
           style={inputStyle}
           onChange={onChange}
           value={value}
-          placeholder={placeholder}
+          placeholder={t[placeholder as keyof typeof t]}
           onFocus={onBlur}
           onBlur={onBlur}
           className={inputClass}
