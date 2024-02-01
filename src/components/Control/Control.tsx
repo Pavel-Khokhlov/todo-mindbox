@@ -32,13 +32,13 @@ const controls = [
 const Control = observer(() => {
   const { todosStore, globalUIStore } = useStore();
   const t = useContext(TranslationContext);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  // const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const countActiveTodos = todosStore.activeTodos.length;
   const countCompletedTodos = todosStore.completedTodos.length;
 
-  const handleDeleteCompleted = () => {
+  /* const handleDeleteCompleted = () => {
     todosStore.setDeleteCompleted();
-  };
+  }; */
 
   /* const countTodosToComplete =
     countActiveTodos === 0
@@ -47,18 +47,18 @@ const Control = observer(() => {
       ? `1 item left`
       : `${countActiveTodos} items left`; */
 
-      const countTodosToComplete = `${todosStore.activeTodos.length} / ${todosStore.todosList.length}`
+  const countTodosToComplete = `${todosStore.activeTodos.length} / ${todosStore.todosList.length}`
 
   const handleFilterClick = (event: MouseEvent<HTMLButtonElement>) => {
     const currentButton = event.currentTarget;
     todosStore.setFilterValue(currentButton.id);
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     countCompletedTodos !== 0
       ? setIsButtonDisabled(false)
       : setIsButtonDisabled(true);
-  }, [countCompletedTodos]);
+  }, [countCompletedTodos]); */
 
   /* function capitalize(s: string): string {
     return s.toLowerCase().replace(/\b./g, function (a) {
@@ -117,7 +117,7 @@ const Control = observer(() => {
           );
         })}
       </StyledButtonBlock>
-      <MainButton
+      {/* <MainButton
         type="button"
         disabled={isButtonDisabled}
         onButtonClick={handleDeleteCompleted}
@@ -133,7 +133,7 @@ const Control = observer(() => {
         >
           {t.controls_clear as keyof typeof t}
         </BaseText>
-      </MainButton>
+      </MainButton> */}
     </StyledControlBlock>
   );
 });

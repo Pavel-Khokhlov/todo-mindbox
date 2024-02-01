@@ -56,7 +56,7 @@ export const themes = {
     focusColor: "rgb(0, 0, 255)",
     headerColor: "rgb(247, 238, 205)",
     themeIconColor: "rgba(0, 0, 200, 0.5)",
-    backgroundColor: "rgba(245, 245, 245, 1)",
+    backgroundColor: "rgba(242, 243, 244, 1)",
     mainBodyColor: "rgba(245, 245, 245, 1)",
   },
   dark: {

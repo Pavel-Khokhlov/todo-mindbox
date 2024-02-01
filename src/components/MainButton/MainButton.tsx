@@ -15,15 +15,20 @@ export type MainButtonProps = {
 const StyledButton = styled.button`
   margin: 0;
   padding: 0;
-  font-family: "Open Sans";
+  font-family: 'RobotoCondensedLight', sans-serif;
   font-size: 20px;
   font-weight: 300;
   line-height: 1.5;
-  background-color: transparent;
   border: none;
   border-radius: 5px;
   padding: 0 5px;
   cursor: pointer;
+  transition: all 2000 ease;
+  &.delete {
+    width: min(200px, 40vw);
+    height: min(40px, 10vw);
+    border-radius: 20px;
+  }
 `;
 
 const MainButton = ({

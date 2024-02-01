@@ -19,6 +19,7 @@ const HeaderTop = styled.header`
   background: currentColor;
   padding: 0 min(50px, 5vw);
   box-sizing: border-box;
+  padding-bottom: min(50px, 5vw);
 `;
 
 const StyledThemeButton = styled(SVG)<SVGProps>`

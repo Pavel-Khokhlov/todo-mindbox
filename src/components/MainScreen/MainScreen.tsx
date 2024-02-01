@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { styled } from "@linaria/react";
 import FormTodo from "../FormTodo/FormTodo";
 import TodosList from "../TodosList/TodosList";
@@ -6,6 +6,10 @@ import Control from "../Control/Control";
 import { TodoItemProps } from "../../store/todos";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store";
+import MainButton from "../MainButton/MainButton";
+import BaseText from "../BaseText/BaseText";
+
+import { TranslationContext } from "../../context/TranslationContext";
 
 export type TodosArray = TodoItemProps[] | [];
 
@@ -44,13 +48,16 @@ const StyledSpanBlockTwo = styled.span`
 
 const Main = observer(() => {
   const { todosStore, globalUIStore } = useStore();
-  /* const [todosToDisplay, setTodosToDisplay] = useState<TodosArray>([]);
+  const t = useContext(TranslationContext);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  useEffect(() => {
-    setTodosToDisplay(todosStore.todosList);
-  }, [setTodosToDisplay, todosStore.todosList]);
+  const countCompletedTodos = todosStore.completedTodos.length;
 
-  const handleFilter = (value: string) => {
+  const handleDeleteCompleted = () => {
+    todosStore.setDeleteCompleted();
+  };
+
+  /* const handleFilter = (value: string) => {
     if (value === "all") {
       setTodosToDisplay(todosStore.todosList);
     } else if (value === "active") {
@@ -65,6 +72,19 @@ const Main = observer(() => {
     boxShadow: `0px 2px 4px ${globalUIStore.theme.boxShadowColor}`,
   };
 
+  const deleteButtonStyle = {
+    background: globalUIStore.theme.infoColor,
+    color: globalUIStore.theme.secondaryColor,
+    opacity: isButtonDisabled ? 0 : 1,
+    cursor: isButtonDisabled ? 'auto' : 'pointer',
+  };
+
+  useEffect(() => {
+    countCompletedTodos !== 0
+      ? setIsButtonDisabled(false)
+      : setIsButtonDisabled(true);
+  }, [countCompletedTodos]);
+
   return (
     <StyledMain
       style={{ backgroundColor: globalUIStore.theme.backgroundColor }}
@@ -76,6 +96,21 @@ const Main = observer(() => {
       </StyledMainTodos>
       <StyledSpanBlockOne style={mainStyle} />
       <StyledSpanBlockTwo style={mainStyle} />
+      <MainButton
+        type="button"
+        className="delete"
+        disabled={isButtonDisabled}
+        style={deleteButtonStyle}
+        onButtonClick={handleDeleteCompleted}
+      >
+        <BaseText
+          level={"p"}
+          className="button"
+          style={{ color: globalUIStore.theme.secondaryColor }}
+        >
+          {t.controls_clear as keyof typeof t}
+        </BaseText>
+      </MainButton>
     </StyledMain>
   );
 });

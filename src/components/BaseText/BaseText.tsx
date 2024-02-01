@@ -13,7 +13,7 @@ type TextTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
 const StyledText = styled.h1`
   margin: 0;
   font-size: min(16px, 3.75vw);
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'RobotoCondensedLight', sans-serif;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -21,8 +21,8 @@ const StyledText = styled.h1`
   user-select: none;
   &.header {
     color: tomato;
-    font-family: 'Dosis', sans-serif;
-    font-size: min(60px, 10vw);
+    font-family: 'RubikScribbleRegular', sans-serif;
+    font-size: min(40px, 8vw);
     font-weight: 600;
     padding: 10px 0;
   }
@@ -36,7 +36,7 @@ const StyledText = styled.h1`
   }
   &.modal {
     width: 100%
-    font-size: min(20px, 4vw);
+    font-size: min(22px, 4vw);
     font-weight: 700;
     margin-bottom: min(30px, 5vw);
   }
