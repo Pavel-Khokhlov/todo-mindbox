@@ -48,6 +48,7 @@ const StyledSpanBlockTwo = styled.span`
 
 const Main = observer(() => {
   const { todosStore, globalUIStore } = useStore();
+  const { theme } = globalUIStore;
   const t = useContext(TranslationContext);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
@@ -68,15 +69,15 @@ const Main = observer(() => {
   }; */
 
   const mainStyle = {
-    backgroundColor: globalUIStore.theme.mainBodyColor,
-    boxShadow: `0px 2px 4px ${globalUIStore.theme.boxShadowColor}`,
+    backgroundColor: theme.mainBodyColor,
+    boxShadow: `0px 2px 4px ${theme.boxShadowColor}`,
   };
 
   const deleteButtonStyle = {
-    background: globalUIStore.theme.infoColor,
-    color: globalUIStore.theme.secondaryColor,
+    background: theme.infoColor,
+    color: theme.secondaryColor,
     opacity: isButtonDisabled ? 0 : 1,
-    cursor: isButtonDisabled ? 'auto' : 'pointer',
+    cursor: isButtonDisabled ? "auto" : "pointer",
   };
 
   useEffect(() => {
@@ -86,9 +87,7 @@ const Main = observer(() => {
   }, [countCompletedTodos]);
 
   return (
-    <StyledMain
-      style={{ backgroundColor: globalUIStore.theme.backgroundColor }}
-    >
+    <StyledMain style={{ backgroundColor: theme.backgroundColor }}>
       <StyledMainTodos style={mainStyle}>
         <FormTodo />
         <TodosList list={todosStore.getActualTodos()} />
@@ -106,7 +105,7 @@ const Main = observer(() => {
         <BaseText
           level={"p"}
           className="button"
-          style={{ color: globalUIStore.theme.secondaryColor }}
+          style={{ color: theme.secondaryColor }}
         >
           {t.controls_clear as keyof typeof t}
         </BaseText>

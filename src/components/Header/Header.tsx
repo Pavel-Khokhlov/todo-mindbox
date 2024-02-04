@@ -12,10 +12,11 @@ import { THEME } from "../../styles/themes";
 import { LOCALES, TranslationContext } from "../../context/TranslationContext";
 
 const HeaderTop = styled.header`
+  position: relative;
   width: 100vw;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background: currentColor;
   padding: 0 min(50px, 5vw);
   box-sizing: border-box;
@@ -42,46 +43,43 @@ const StyledLocaleButton = styled.button`
 
 const Header = observer(() => {
   const { globalUIStore } = useStore();
+  const { theme, locale } = globalUIStore;
   const t = useContext(TranslationContext);
 
   const handleToggleTheme = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     globalUIStore.setTheme(
-      globalUIStore.theme.name === THEME.LIGHTTHEME
-        ? THEME.DARKTHEME
-        : THEME.LIGHTTHEME
+      theme.name === THEME.LIGHTTHEME ? THEME.DARKTHEME : THEME.LIGHTTHEME
     );
   };
 
   const handleToggleLanguage = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     globalUIStore.setLocale(
-      globalUIStore.locale === LOCALES.ENGLISH
-        ? LOCALES.RUSSIAN
-        : LOCALES.ENGLISH
+      locale === LOCALES.ENGLISH ? LOCALES.RUSSIAN : LOCALES.ENGLISH
     );
   };
 
   return (
-    <HeaderTop style={{ color: globalUIStore.theme.backgroundColor }}>
+    <HeaderTop style={{ color: theme.backgroundColor }}>
       <StyledLocaleButton onClick={handleToggleLanguage}>
         <BaseText
           level={2}
           className="locale"
           style={{
-            color: globalUIStore.theme.textColor,
+            color: theme.textColor,
           }}
         >
-          {globalUIStore.locale === LOCALES.ENGLISH ? "Ru" : "En"}
+          {locale === LOCALES.ENGLISH ? "Ru" : "En"}
         </BaseText>
       </StyledLocaleButton>
       <BaseText level={2} className="header">
         {t.header_title}
       </BaseText>
       <StyledThemeButton
-        src={globalUIStore.theme.name === THEME.LIGHTTHEME ? IconMoon : IconSun}
+        src={theme.name === THEME.LIGHTTHEME ? IconMoon : IconSun}
         onClick={handleToggleTheme}
-        color={globalUIStore.theme.themeIconColor}
+        color={theme.themeIconColor}
       />
     </HeaderTop>
   );

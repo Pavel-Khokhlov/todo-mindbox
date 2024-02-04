@@ -20,10 +20,13 @@ const StyledText = styled.h1`
   -o-user-select: none;
   user-select: none;
   &.header {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translate(-50%, 0);
     color: tomato;
     font-family: 'BadScriptRegular', sans-serif;
     font-size: min(30px, 6vw);
-    font-weight: 600;
     padding: 10px 0;
   }
   &.footer {
