@@ -1,6 +1,6 @@
 import React, { FormEvent, useContext } from "react";
 import { styled } from "@linaria/react";
-import IconChevron from "../../assets/icons/chevron.svg";
+import IconTaskMain from "../../assets/icons/task_main.svg";
 import IconAdd from "../../assets/icons/add.svg";
 import IconTask from "../../assets/icons/task.svg";
 import SVG from "react-inlinesvg";
@@ -79,9 +79,9 @@ interface FieldInputProps {
   place: "create" | "modal";
   placeholder: string;
   value: string;
+  onBlur?: () => void;
   onChange: (e: FormEvent<HTMLInputElement>) => void;
   onSubmit?: (e: FormEvent<HTMLButtonElement>) => void;
-  onBlur?: () => void;
   isFocused?: boolean;
 }
 
@@ -105,36 +105,37 @@ const FieldInput = observer(
     place,
     placeholder,
     value,
+    onBlur,
     onChange,
     onSubmit,
-    onBlur,
     isFocused,
   }: FieldInputProps) => {
     const { globalUIStore } = useStore();
+    const { theme } = globalUIStore;
     const t = useContext(TranslationContext);
 
-    const currentSrc = place === "create" ? IconChevron : IconTask;
+    const currentSrc = place === "create" ? IconTaskMain : IconTask;
     const fieldClass = place;
-    const inputClass = `${globalUIStore.theme.name} ${
+    const inputClass = `${theme.name} ${
       isFocused && place === "modal" ? `focus ${place}` : place
     }`;
     const chevronColor = () => {
       let color: string;
       if (place === "modal") {
-        color = globalUIStore.theme.greyColor;
+        color = theme.greyColor;
       } else {
-        color = globalUIStore.theme.disabledColor;
+        color = theme.disabledColor;
       }
-      if (isFocused) color = globalUIStore.theme.infoColor;
+      if (isFocused) color = theme.infoColor;
       return color;
     };
 
     const inputBottomColor = () => {
       if (place === "modal") {
         if (isFocused) {
-          return globalUIStore.theme.infoColor;
+          return theme.infoColor;
         } else {
-          return globalUIStore.theme.greyColor;
+          return theme.greyColor;
         }
       }
     };
@@ -142,15 +143,15 @@ const FieldInput = observer(
     const inputStyle = {
       color:
         place === "modal"
-          ? globalUIStore.theme.primaryColor
-          : globalUIStore.theme.textInputColor,
+          ? theme.primaryColor
+          : theme.textInputColor,
       borderBottom: `1px solid ${inputBottomColor()}`,
     };
 
     return (
       <StyledField
         className={fieldClass}
-        style={{ color: globalUIStore.theme.mainBodyColor }}
+        style={{ color: theme.mainBodyColor }}
       >
         <StyledIconChevron src={currentSrc} color={chevronColor()} />
         <StyledInput
@@ -170,8 +171,8 @@ const FieldInput = observer(
               src={IconAdd}
               color={
                 !value
-                  ? globalUIStore.theme.disabledColor
-                  : globalUIStore.theme.infoColor
+                  ? theme.disabledColor
+                  : theme.infoColor
               }
             />
           </StyledButton>

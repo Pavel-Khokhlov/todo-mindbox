@@ -29,7 +29,7 @@ const StyledModal = styled.section`
   z-index: 10;
   @media screen and (max-width: 450px) {
     align-items: flex-start;
-    padding-top: 120px;
+    padding-top: 90px;
   }
 `;
 

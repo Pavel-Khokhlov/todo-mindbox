@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import { styled } from "@linaria/react";
 import FieldInput from "../FieldInput/FieldInput";
 import { useStore } from "../../store";
@@ -12,6 +12,7 @@ const StyledForm = styled.form`
 
 const FormTodo = observer(() => {
   const { todosStore, globalUIStore } = useStore();
+  const { theme } = globalUIStore;
   const [value, setValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -34,6 +35,15 @@ const FormTodo = observer(() => {
   const handleFocus = () => {
     setIsFocused(!isFocused);
   };
+
+  useEffect(() => {
+    if (!(value && isFocused === false)) {
+      return;
+    }
+    todosStore.setAddNewTodo(value);
+    setValue("");
+  }, [isFocused, todosStore, value]);
+
   return (
     <>
       <StyledForm>
@@ -49,9 +59,7 @@ const FormTodo = observer(() => {
       </StyledForm>
       <Delimiter
         style={{
-          background: isFocused
-            ? globalUIStore.theme.infoColor
-            : globalUIStore.theme.disabledColor,
+          background: isFocused ? theme.infoColor : theme.disabledColor,
         }}
       />
     </>

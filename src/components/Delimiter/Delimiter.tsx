@@ -6,7 +6,7 @@ export type DelimiterProps = {
 }
 
 const StyledDelimiter = styled.div`
-  width: min(700px, 90vw);
+  width: min(700px, 80vw);
   margin: 0 auto;
   height: 2px;
   transition: all 0.5s ease;

@@ -21,8 +21,8 @@ const StyledText = styled.h1`
   user-select: none;
   &.header {
     color: tomato;
-    font-family: 'RubikScribbleRegular', sans-serif;
-    font-size: min(40px, 8vw);
+    font-family: 'BadScriptRegular', sans-serif;
+    font-size: min(30px, 6vw);
     font-weight: 600;
     padding: 10px 0;
   }
