@@ -15,11 +15,12 @@ interface TodoProps {
 
 const StyledBlockItem = styled.div`
   position: relative;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
+  border-radius: min(20px, 3vw);
+  margin: min(15px, 2vw);
 `;
 
 const StyledTodoItem = styled.div`
@@ -85,6 +86,7 @@ const StyledIconEdit = styled(SVG)<SVGProps>`
 const TodoItem = observer(({ item }: TodoProps) => {
   const { id, name, isCompleted } = item;
   const { globalUIStore, todosStore } = useStore();
+  const {theme} = globalUIStore;
 
   const handleChange = (id: number) => {
     todosStore.setToggleComplete(id);
@@ -98,17 +100,17 @@ const TodoItem = observer(({ item }: TodoProps) => {
   const labelClassName = isCompleted ? "completed" : "";
 
   return (
-    <StyledBlockItem>
+    <StyledBlockItem style={{ background: theme.itemBodyColor }}>
       <StyledTodoItem onClick={() => handleChange(id)}>
-        <StyledCheckBox style={{ borderColor: globalUIStore.theme.disabledColor }}>
+        <StyledCheckBox style={{ borderColor: theme.disabledColor }}>
           {isCompleted && (
-            <StyledIcon src={Icon} color={globalUIStore.theme.successColor} />
+            <StyledIcon src={Icon} color={theme.successColor} />
           )}
         </StyledCheckBox>
         <StyledInput type="checkbox" checked={isCompleted} readOnly />
         <StyledLabel
           className={labelClassName}
-          style={{ color: !isCompleted ? globalUIStore.theme.textColor : globalUIStore.theme.disabledColor }}
+          style={{ color: !isCompleted ? theme.textColor : theme.disabledColor }}
         >
           {name}
         </StyledLabel>
@@ -116,7 +118,7 @@ const TodoItem = observer(({ item }: TodoProps) => {
       <StyledButton onClick={() => handelEditClick()} disabled={isCompleted}>
         <StyledIconEdit
           src={IconEdit}
-          color={isCompleted ? globalUIStore.theme.disabledColor : globalUIStore.theme.infoColor}
+          color={isCompleted ? theme.disabledColor : theme.infoColor}
         />
       </StyledButton>
     </StyledBlockItem>

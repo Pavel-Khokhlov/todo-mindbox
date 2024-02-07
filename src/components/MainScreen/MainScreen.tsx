@@ -10,6 +10,7 @@ import MainButton from "../MainButton/MainButton";
 import BaseText from "../BaseText/BaseText";
 
 import { TranslationContext } from "../../context/TranslationContext";
+import ShareControls from "../ShareControls/ShareControls";
 
 export type TodosArray = TodoItemProps[] | [];
 
@@ -91,6 +92,7 @@ const Main = observer(() => {
       <StyledMainTodos style={mainStyle}>
         <FormTodo />
         <TodosList list={todosStore.getActualTodos()} />
+        <ShareControls />
         <Control />
       </StyledMainTodos>
       <StyledSpanBlockOne style={mainStyle} />

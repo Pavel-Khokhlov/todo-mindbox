@@ -26,6 +26,7 @@ export interface ThemeProps {
   themeIconColor: string;
   backgroundColor: string;
   mainBodyColor: string;
+  itemBodyColor: string;
 }
 
 export enum THEME {
@@ -56,8 +57,9 @@ export const themes = {
     focusColor: "rgb(0, 0, 255)",
     headerColor: "rgb(247, 238, 205)",
     themeIconColor: "rgba(0, 0, 200, 0.5)",
-    backgroundColor: "rgba(242, 243, 244, 1)",
-    mainBodyColor: "rgba(255, 255, 255, 1)",
+    backgroundColor: "rgba(232, 233, 234, 1)",
+    mainBodyColor: "rgba(245, 245, 245, 1)",
+    itemBodyColor: "rgba(255, 255, 255, 1)"
   },
   dark: {
     name: THEME.DARKTHEME,
@@ -83,5 +85,6 @@ export const themes = {
     themeIconColor: "rgba(255, 216, 0, 1)",
     backgroundColor: "rgba(16, 16, 16, 1)",
     mainBodyColor: "rgba(51, 51, 53, 1)",
+    itemBodyColor: "rgba(255, 255, 255, 0.1)"
   },
 };

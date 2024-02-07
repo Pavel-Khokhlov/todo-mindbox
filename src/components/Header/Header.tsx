@@ -32,7 +32,7 @@ const StyledThemeButton = styled(SVG)<SVGProps>`
   cursor: pointer;
 `;
 
-const StyledLocaleButton = styled.button`
+export const StyledLocaleButton = styled.button`
   width: min(30px, 5vw);
   height: min(30px, 5vw);
   margin-right: auto;
