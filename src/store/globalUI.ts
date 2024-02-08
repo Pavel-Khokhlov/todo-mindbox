@@ -15,6 +15,7 @@ export class GlobalUIStore {
   isEditModalShown: boolean = false;
   theme: ThemeProps = this.initialTheme();
   locale: LocaleProps = this.initialLocale();
+  isNotificationShown: boolean = false;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {rootStore: false});
@@ -60,5 +61,9 @@ export class GlobalUIStore {
 
   setEditModalShown(value: boolean) {
     this.isEditModalShown = value;
+  }
+
+  setIsNotificationShown(value: boolean) {
+    this.isNotificationShown = value;
   }
 }

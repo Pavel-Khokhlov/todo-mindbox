@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import { styled } from "@linaria/react";
 import SVG from "react-inlinesvg";
 import { observer } from "mobx-react-lite";
@@ -57,19 +57,26 @@ const ShareControls = observer(() => {
   const { todosStore, globalUIStore } = useStore();
   const { theme } = globalUIStore;
   const t = useContext(TranslationContext);
-  const getList = (br: string) => {
-    let message: string = t.header_title + br;
-    todosStore.activeTodos.forEach(
-      (item, index) => (message = message + `${index + 1}. ${item.name}${br}`)
-    );
+  const getList = useCallback(() => {
+    let message: string = `${t.header_title}\n`;
+    todosStore.activeTodos
+      .sort((a, b) => {
+        return b.id - a.id;
+      })
+      .forEach(
+        (item, index) => (message = message + `${index + 1}. ${item.name}\n`)
+      );
     return message;
-  };
-  const handleCopy = () => {
-    copyTextToClipboard(getList("\n"));
-  };
+  }, [t.header_title, todosStore.activeTodos]);
+  const handleCopy = useCallback(() => {
+    if (!globalUIStore.isNotificationShown) {
+      copyTextToClipboard(getList());
+      globalUIStore.setIsNotificationShown(true);
+    }
+  }, [getList, globalUIStore]);
   return (
     <StyledShareControls>
-      <StyledShareButton onClick={() => handleCopy()}>
+      <StyledShareButton onClick={handleCopy}>
         <StyledIconCopy
           src={IconCopy}
           color={theme.infoColor}
@@ -80,16 +87,16 @@ const ShareControls = observer(() => {
       {/* <LinkedinShareButton url={getList()}>
             <LinkedinIcon size={32} round={true} />
         </LinkedinShareButton>*/}
-      <VKShareButton url={getList(`\n`)}>
+      <VKShareButton url={getList()}>
         <VKIcon size={32} round={true} />
       </VKShareButton>
-      <TelegramShareButton url={getList(`%0A`)}>
+      <TelegramShareButton url={getList()}>
         <TelegramIcon size={32} round={true} />
       </TelegramShareButton>
-      <WhatsappShareButton url={getList(`\n`)}>
+      <WhatsappShareButton url={getList()}>
         <WhatsappIcon size={32} round={true} />
       </WhatsappShareButton>
-      <ViberShareButton url={getList(`\n`)}>
+      <ViberShareButton url={getList()}>
         <ViberIcon size={32} round={true} />
       </ViberShareButton>
     </StyledShareControls>

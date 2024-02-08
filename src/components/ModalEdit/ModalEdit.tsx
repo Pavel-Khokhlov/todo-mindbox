@@ -5,7 +5,6 @@ import BaseText from "../BaseText/BaseText";
 import { styled } from "@linaria/react";
 import { useStore } from "../../store";
 import { TranslationContext } from "../../context/TranslationContext";
-import { KEY_TODOS } from "../../utils";
 
 const StyledInfoBlock = styled.div`
   width: 100%;
@@ -21,7 +20,6 @@ const ModalEdit = () => {
 
   const [value, setValue] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
-
 
   const canSave = todosStore.editableTodo?.name !== value;
 
