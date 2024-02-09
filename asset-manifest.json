@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/todo-mindbox/static/css/main.1ad61bf0.css",
-    "main.js": "/todo-mindbox/static/js/main.2403c245.js",
+    "main.js": "/todo-mindbox/static/js/main.66e7dbcc.js",
     "static/js/543.1247c494.chunk.js": "/todo-mindbox/static/js/543.1247c494.chunk.js",
     "static/media/RubikScribble-Regular.ttf": "/todo-mindbox/static/media/RubikScribble-Regular.eb09e3ff85f65042df4e.ttf",
     "static/media/RobotoCondensed-Light.ttf": "/todo-mindbox/static/media/RobotoCondensed-Light.43aa3135f2d0207e6473.ttf",
@@ -17,11 +17,11 @@
     "static/media/add.svg": "/todo-mindbox/static/media/add.50d8c93c89535601ce789313774ef1f0.svg",
     "static/media/checkbox.svg": "/todo-mindbox/static/media/checkbox.f17e823e944bb246f067f019a3a8d969.svg",
     "main.1ad61bf0.css.map": "/todo-mindbox/static/css/main.1ad61bf0.css.map",
-    "main.2403c245.js.map": "/todo-mindbox/static/js/main.2403c245.js.map",
+    "main.66e7dbcc.js.map": "/todo-mindbox/static/js/main.66e7dbcc.js.map",
     "543.1247c494.chunk.js.map": "/todo-mindbox/static/js/543.1247c494.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1ad61bf0.css",
-    "static/js/main.2403c245.js"
+    "static/js/main.66e7dbcc.js"
   ]
 }
