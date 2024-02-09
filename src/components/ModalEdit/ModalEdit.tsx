@@ -34,7 +34,10 @@ const ModalEdit = observer(({isVisible}: ModalEditProps) => {
   };
 
   const handleFocus = () => {
-    setIsFocused(!isFocused);
+    setIsFocused(true);
+  };
+  const handleBlur = () => {
+    setIsFocused(false);
   };
 
   const handleChangeValue = (e: FormEvent<HTMLInputElement>) => {
@@ -69,7 +72,8 @@ const ModalEdit = observer(({isVisible}: ModalEditProps) => {
         place="modal"
         placeholder="modal_input_plh"
         onChange={handleChangeValue}
-        onBlur={handleFocus}
+        onBlur={handleBlur}
+        onFocus={handleFocus}
         isFocused={isFocused}
       />
       <StyledInfoBlock>
