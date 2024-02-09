@@ -3,7 +3,6 @@ import { styled } from "@linaria/react";
 import MainScreen from "../MainScreen/MainScreen";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import Notification from "../Notification/Notification";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store";
 import { KEY_TODOS } from "../../utils";
@@ -54,7 +53,6 @@ const App = observer(() => {
         <Footer />
         <ModalEdit isVisible={isEditModalShown} />
       </StyledApp>
-      <Notification isVisible={isNotificationShown} />
     </TranslationContext.Provider>
   );
 });

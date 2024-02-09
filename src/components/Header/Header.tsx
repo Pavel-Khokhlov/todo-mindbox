@@ -8,6 +8,7 @@ import { SVGProps } from "../FieldInput/FieldInput";
 import { useStore } from "../../store";
 import { observer } from "mobx-react-lite";
 import { THEME } from "../../styles/themes";
+import Notification from "../Notification/Notification";
 
 import { LOCALES, TranslationContext } from "../../context/TranslationContext";
 
@@ -46,7 +47,7 @@ export const StyledLocaleButton = styled.button`
 
 const Header = observer(() => {
   const { globalUIStore } = useStore();
-  const { theme, locale } = globalUIStore;
+  const { theme, locale, isNotificationShown } = globalUIStore;
   const t = useContext(TranslationContext);
 
   const handleToggleTheme = (e: { preventDefault: () => void }) => {
@@ -84,6 +85,7 @@ const Header = observer(() => {
         onClick={handleToggleTheme}
         color={theme.themeIconColor}
       />
+      <Notification isVisible={isNotificationShown} />
     </HeaderTop>
   );
 });
