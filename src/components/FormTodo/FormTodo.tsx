@@ -47,8 +47,6 @@ const FormTodo = observer(() => {
     setValue("");
   }, [isFocused, todosStore, value]);
 
-  console.log(`isFocused`, isFocused)
-
   return (
     <>
       <StyledForm>
