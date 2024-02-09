@@ -80,6 +80,7 @@ interface FieldInputProps {
   placeholder: string;
   value: string;
   onBlur?: () => void;
+  onFocus?: () => void;
   onChange: (e: FormEvent<HTMLInputElement>) => void;
   onSubmit?: (e: FormEvent<HTMLButtonElement>) => void;
   isFocused?: boolean;
@@ -106,6 +107,7 @@ const FieldInput = observer(
     placeholder,
     value,
     onBlur,
+    onFocus,
     onChange,
     onSubmit,
     isFocused,
@@ -159,7 +161,7 @@ const FieldInput = observer(
           onChange={onChange}
           value={value}
           placeholder={t[placeholder as keyof typeof t]}
-          onFocus={onBlur}
+          onFocus={onFocus}
           onBlur={onBlur}
           className={inputClass}
           autoFocus={true}

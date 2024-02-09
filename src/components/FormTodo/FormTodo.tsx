@@ -33,7 +33,10 @@ const FormTodo = observer(() => {
   };
 
   const handleFocus = () => {
-    setIsFocused(!isFocused);
+    setIsFocused(true);
+  };
+  const handleBlur = () => {
+    setIsFocused(false);
   };
 
   useEffect(() => {
@@ -44,6 +47,8 @@ const FormTodo = observer(() => {
     setValue("");
   }, [isFocused, todosStore, value]);
 
+  console.log(`isFocused`, isFocused)
+
   return (
     <>
       <StyledForm>
@@ -53,7 +58,8 @@ const FormTodo = observer(() => {
           value={value}
           onChange={handleChangeValue}
           onSubmit={handleSubmit}
-          onBlur={handleFocus}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
           isFocused={isFocused}
         />
       </StyledForm>
