@@ -5,6 +5,11 @@ import BaseText from "../BaseText/BaseText";
 import { styled } from "@linaria/react";
 import { useStore } from "../../store";
 import { TranslationContext } from "../../context/TranslationContext";
+import { observer } from "mobx-react-lite";
+
+interface ModalEditProps {
+  isVisible: boolean;
+}
 
 const StyledInfoBlock = styled.div`
   width: 100%;
@@ -14,8 +19,9 @@ const StyledInfoBlock = styled.div`
   box-sizing: border-box;
 `;
 
-const ModalEdit = () => {
+const ModalEdit = observer(({isVisible}: ModalEditProps) => {
   const { globalUIStore, todosStore } = useStore();
+  const { isEditModalShown } = globalUIStore;
   const t = useContext(TranslationContext);
 
   const [value, setValue] = useState<string>("");
@@ -40,22 +46,23 @@ const ModalEdit = () => {
 
   const handleUpdateTodo = () => {
     todosStore.setUpdateTodo(value);
-    globalUIStore.setEditModalShown(false);
+    globalUIStore.setIsEditModalShown(false);
   };
 
   useEffect(() => {
-    if (todosStore.editableTodo && globalUIStore.isEditModalShown) {
+    if (todosStore.editableTodo && isEditModalShown) {
       setValue(todosStore.editableTodo.name);
     } else {
       setValue("");
     }
-  }, [globalUIStore.isEditModalShown, todosStore.editableTodo]);
+  }, [isEditModalShown, todosStore.editableTodo]);
 
   return (
     <Modal
       title="modal_edit_title"
       canSave={canSave}
       onSubmit={handleUpdateTodo}
+      isVisible={isVisible}
     >
       <FieldInput
         value={value}
@@ -84,6 +91,6 @@ const ModalEdit = () => {
       )}
     </Modal>
   );
-};
+});
 
 export default ModalEdit;

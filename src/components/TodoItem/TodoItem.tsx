@@ -86,14 +86,14 @@ const StyledIconEdit = styled(SVG)<SVGProps>`
 const TodoItem = observer(({ item }: TodoProps) => {
   const { id, name, isCompleted } = item;
   const { globalUIStore, todosStore } = useStore();
-  const {theme} = globalUIStore;
+  const { theme } = globalUIStore;
 
   const handleChange = (id: number) => {
     todosStore.setToggleComplete(id);
   };
 
   const handelEditClick = () => {
-    globalUIStore.setEditModalShown(true);
+    globalUIStore.setIsEditModalShown(true);
     todosStore.setEditableTodo(item);
   };
 
@@ -103,14 +103,14 @@ const TodoItem = observer(({ item }: TodoProps) => {
     <StyledBlockItem style={{ background: theme.itemBodyColor }}>
       <StyledTodoItem onClick={() => handleChange(id)}>
         <StyledCheckBox style={{ borderColor: theme.disabledColor }}>
-          {isCompleted && (
-            <StyledIcon src={Icon} color={theme.successColor} />
-          )}
+          {isCompleted && <StyledIcon src={Icon} color={theme.successColor} />}
         </StyledCheckBox>
         <StyledInput type="checkbox" checked={isCompleted} readOnly />
         <StyledLabel
           className={labelClassName}
-          style={{ color: !isCompleted ? theme.textColor : theme.disabledColor }}
+          style={{
+            color: !isCompleted ? theme.textColor : theme.disabledColor,
+          }}
         >
           {name}
         </StyledLabel>

@@ -11,6 +11,12 @@ export interface TodoItemProps {
   modified_at?: number;
 }
 
+export enum FILTER {
+  ALL = 'all',
+  ACTIVE = 'active',
+  COMPLETED = 'completed',
+}
+
 const localTodos = localStorage[`${KEY_TODOS}`]
   ? JSON.parse(localStorage[`${KEY_TODOS}`])
   : [];
@@ -20,7 +26,7 @@ export class TodosStore {
 
   todosList: TodoItemProps[] | [] = localTodos;
   editableTodo: TodoItemProps | null = null;
-  filterValue: string = 'all';
+  filterValue: FilterProps = FILTER.ALL;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, { rootStore: false });
@@ -40,10 +46,10 @@ export class TodosStore {
   }
 
   getActualTodos() {
-    if (this.filterValue === 'completed') {
+    if (this.filterValue === FILTER.COMPLETED) {
       return this.completedTodos
     }
-    if (this.filterValue === 'active') {
+    if (this.filterValue === FILTER.ACTIVE) {
       return this.activeTodos
     }
     return this.todosList
@@ -70,7 +76,7 @@ export class TodosStore {
         ? { ...item, isCompleted: !item.isCompleted }
         : item;
     });
-    if (this.completedTodos.length === 0 || this.activeTodos.length === 0) this.filterValue = 'all';
+    if (this.completedTodos.length === 0 || this.activeTodos.length === 0) this.filterValue = FILTER.ALL;
   }
 
   setEditableTodo(item: TodoItemProps) {
@@ -91,10 +97,10 @@ export class TodosStore {
 
   setDeleteCompleted() {
     this.todosList = this.activeTodos;
-    this.filterValue = 'all';
+    this.filterValue = FILTER.ALL;
   }
 
-  setFilterValue(value: string) {
+  setFilterValue(value: FilterProps) {
     this.filterValue = value;
     this.getActualTodos();
   }

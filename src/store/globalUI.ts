@@ -12,10 +12,10 @@ export const ROOT = document.querySelector("#root");
 export class GlobalUIStore {
   rootStore: RootStore;
 
-  isEditModalShown: boolean = false;
   theme: ThemeProps = this.initialTheme();
   locale: LocaleProps = this.initialLocale();
   isNotificationShown: boolean = false;
+  isEditModalShown: boolean = false;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {rootStore: false});
@@ -59,7 +59,7 @@ export class GlobalUIStore {
     this.locale = value;
   }
 
-  setEditModalShown(value: boolean) {
+  setIsEditModalShown(value: boolean) {
     this.isEditModalShown = value;
   }
 

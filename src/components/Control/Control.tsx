@@ -1,4 +1,4 @@
-import React, { MouseEvent, useContext, useEffect, useState } from "react";
+import React, { MouseEvent, useContext } from "react";
 import { styled } from "@linaria/react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../store";
@@ -6,6 +6,7 @@ import BaseText from "../BaseText/BaseText";
 import MainButton from "../MainButton/MainButton";
 
 import { TranslationContext } from "../../context/TranslationContext";
+import { FILTER } from "../../store/todos";
 
 const StyledControlBlock = styled.section`
   width: 100%;
@@ -24,54 +25,31 @@ const StyledButtonBlock = styled.div`
 `;
 
 const controls = [
-  { id: 1, name: "all" },
-  { id: 2, name: "active" },
-  { id: 3, name: "completed" },
+  { id: 1, name: FILTER.ALL },
+  { id: 2, name: FILTER.ACTIVE },
+  { id: 3, name: FILTER.COMPLETED },
 ];
 
 const Control = observer(() => {
   const { todosStore, globalUIStore } = useStore();
+  const { theme } = globalUIStore;
   const t = useContext(TranslationContext);
-  // const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const countActiveTodos = todosStore.activeTodos.length;
   const countCompletedTodos = todosStore.completedTodos.length;
 
-  /* const handleDeleteCompleted = () => {
-    todosStore.setDeleteCompleted();
-  }; */
-
-  /* const countTodosToComplete =
-    countActiveTodos === 0
-      ? `no items`
-      : countActiveTodos === 1
-      ? `1 item left`
-      : `${countActiveTodos} items left`; */
-
-  const countTodosToComplete = `${todosStore.activeTodos.length} / ${todosStore.todosList.length}`
+  const countTodosToComplete = `${todosStore.activeTodos.length} / ${todosStore.todosList.length}`;
 
   const handleFilterClick = (event: MouseEvent<HTMLButtonElement>) => {
-    const currentButton = event.currentTarget;
-    todosStore.setFilterValue(currentButton.id);
+    const { id } = event.currentTarget;
+    todosStore.setFilterValue(FILTER[id.toUpperCase() as keyof typeof FILTER]);
   };
 
-  /* useEffect(() => {
-    countCompletedTodos !== 0
-      ? setIsButtonDisabled(false)
-      : setIsButtonDisabled(true);
-  }, [countCompletedTodos]); */
-
-  /* function capitalize(s: string): string {
-    return s.toLowerCase().replace(/\b./g, function (a) {
-      return a.toUpperCase();
-    });
-  } */
-
   function defineDisabled(s: string): boolean {
-    return s === "all" && todosStore.todosList.length === 0
+    return s === FILTER.ALL && todosStore.todosList.length === 0
       ? true
-      : s === "active" && countActiveTodos === 0
+      : s === FILTER.ACTIVE && countActiveTodos === 0
       ? true
-      : s === "completed" && countCompletedTodos === 0
+      : s === FILTER.COMPLETED && countCompletedTodos === 0
       ? true
       : false;
   }
@@ -80,7 +58,7 @@ const Control = observer(() => {
 
   return (
     <StyledControlBlock>
-      <BaseText level={"p"} style={{ color: globalUIStore.theme.textColor }}>
+      <BaseText level={"p"} style={{ color: theme.textColor }}>
         {countTodosToComplete}
       </BaseText>
       <StyledButtonBlock>
@@ -96,8 +74,8 @@ const Control = observer(() => {
               style={{
                 backgroundColor:
                   i.name === activeButton && !defineDisabled(i.name)
-                    ? globalUIStore.theme.infoColor
-                    : globalUIStore.theme.transparent,
+                    ? theme.infoColor
+                    : theme.transparent,
               }}
             >
               <BaseText
@@ -105,10 +83,10 @@ const Control = observer(() => {
                 className="button"
                 style={{
                   color: defineDisabled(i.name)
-                    ? globalUIStore.theme.textDisableColor
+                    ? theme.textDisableColor
                     : i.name === activeButton
-                    ? globalUIStore.theme.secondaryColor
-                    : globalUIStore.theme.textColor,
+                    ? theme.secondaryColor
+                    : theme.textColor,
                 }}
               >
                 {t[`controls_${i.name}` as keyof typeof t]}
@@ -117,23 +95,6 @@ const Control = observer(() => {
           );
         })}
       </StyledButtonBlock>
-      {/* <MainButton
-        type="button"
-        disabled={isButtonDisabled}
-        onButtonClick={handleDeleteCompleted}
-      >
-        <BaseText
-          level={"p"}
-          className="button"
-          style={{
-            color: isButtonDisabled
-              ? globalUIStore.theme.textDisableColor
-              : globalUIStore.theme.textColor,
-          }}
-        >
-          {t.controls_clear as keyof typeof t}
-        </BaseText>
-      </MainButton> */}
     </StyledControlBlock>
   );
 });

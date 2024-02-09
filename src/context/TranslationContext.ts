@@ -10,6 +10,9 @@ export enum LOCALES {
 export const translations = {
   en: {
     header_title: `To-Do list`,
+    header_title_all: "All list",
+    header_title_active: "Active list",
+    header_title_completed: "Completed list",
     // главный экран
     main_input_plh: `What is the  task to be done?`,
     // modal
@@ -24,9 +27,14 @@ export const translations = {
     controls_all: 'All',
     controls_active: 'Active',
     controls_completed: 'Completed',
+    // notification
+    notification_success: 'This list has been copied successfully',
   },
   ru: {
     header_title: "Список дел",
+    header_title_all: "Полный список дел",
+    header_title_active: "Список не завершенных дел",
+    header_title_completed: "Список завершенных дел",
     // главный экран
     main_input_plh: `Что необходимло сделать?`,
     // modal
@@ -41,6 +49,8 @@ export const translations = {
     controls_all: 'Все',
     controls_active: 'Открытые',
     controls_completed: 'Завершенные',
+    // notification
+    notification_success: 'Этот список был успешно скопирован!',
   },
 };
 

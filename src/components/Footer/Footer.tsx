@@ -15,9 +15,10 @@ const StyledFooter = styled.footer`
 
 const Footer = observer(() => {
   const { globalUIStore } = useStore();
+  const { theme } = globalUIStore;
   const currentYear = new Date().getFullYear();
   return (
-    <StyledFooter style={{ backgroundColor: globalUIStore.theme.backgroundColor, color: globalUIStore.theme.textGreyColor }}>
+    <StyledFooter style={{ backgroundColor: theme.backgroundColor, color: theme.textGreyColor }}>
       <BaseText level={'p'} className="footer">&#9400; 2022 - {currentYear} Copyright by Pavel Khokhlov</BaseText>
       <BaseText level={'p'} className="footer">Version: {app_json.version}</BaseText>
     </StyledFooter>

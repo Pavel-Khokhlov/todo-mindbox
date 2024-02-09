@@ -28,6 +28,7 @@ const StyledApp = styled.section`
 
 const App = observer(() => {
   const { globalUIStore, todosStore } = useStore();
+  const {locale, isNotificationShown, isEditModalShown } = globalUIStore;
 
   useEffect(() => {
     if (todosStore.todosList.length !== 0) {
@@ -38,22 +39,21 @@ const App = observer(() => {
   }, [todosStore.todosList]);
 
   useEffect(() => {
-    console.log(`APP FALSE`, globalUIStore.isNotificationShown)
-    if (globalUIStore.isNotificationShown) {
+    if (isNotificationShown) {
       setTimeout(() => {
         globalUIStore.setIsNotificationShown(false);
       }, 3000);
     }
-  }, [globalUIStore, globalUIStore.isNotificationShown]);
+  }, [isNotificationShown, globalUIStore]);
 
   return (
-    <TranslationContext.Provider value={translations[globalUIStore.locale]}>
+    <TranslationContext.Provider value={translations[locale]}>
       <StyledApp>
         <Header />
         <MainScreen />
         <Footer />
-        <ModalEdit />
-        <Notification isVisible={globalUIStore.isNotificationShown} />
+        <ModalEdit isVisible={isEditModalShown} />
+        <Notification isVisible={isNotificationShown} />
       </StyledApp>
     </TranslationContext.Provider>
   );
