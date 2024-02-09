@@ -53,8 +53,8 @@ const App = observer(() => {
         <MainScreen />
         <Footer />
         <ModalEdit isVisible={isEditModalShown} />
-        <Notification isVisible={isNotificationShown} />
       </StyledApp>
+      <Notification isVisible={isNotificationShown} />
     </TranslationContext.Provider>
   );
 });

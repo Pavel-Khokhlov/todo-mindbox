@@ -12,7 +12,9 @@ import { THEME } from "../../styles/themes";
 import { LOCALES, TranslationContext } from "../../context/TranslationContext";
 
 const HeaderTop = styled.header`
-  position: relative;
+  position: sticky;
+  top: 0;
+  left: 0;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -22,6 +24,7 @@ const HeaderTop = styled.header`
   box-sizing: border-box;
   padding-top: min(20px, 3vw);
   padding-bottom: min(30px, 5vw);
+  z-index: 100;
 `;
 
 const StyledThemeButton = styled(SVG)<SVGProps>`

@@ -14,7 +14,7 @@ const StyledNotification = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: min(100px, 13vw);
+  top: min(90px, 14vw);
   right: -100%;
   z-index: 100;
   width: min(400px, 80vw);
