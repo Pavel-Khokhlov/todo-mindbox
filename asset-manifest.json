@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/todo-mindbox/static/css/main.eae1be10.css",
+    "main.css": "/todo-mindbox/static/css/main.080b487e.css",
     "main.js": "/todo-mindbox/static/js/main.93fb69ff.js",
     "static/js/543.1247c494.chunk.js": "/todo-mindbox/static/js/543.1247c494.chunk.js",
     "static/media/RubikScribble-Regular.ttf": "/todo-mindbox/static/media/RubikScribble-Regular.eb09e3ff85f65042df4e.ttf",
@@ -16,12 +16,12 @@
     "index.html": "/todo-mindbox/index.html",
     "static/media/add.svg": "/todo-mindbox/static/media/add.50d8c93c89535601ce789313774ef1f0.svg",
     "static/media/checkbox.svg": "/todo-mindbox/static/media/checkbox.f17e823e944bb246f067f019a3a8d969.svg",
-    "main.eae1be10.css.map": "/todo-mindbox/static/css/main.eae1be10.css.map",
+    "main.080b487e.css.map": "/todo-mindbox/static/css/main.080b487e.css.map",
     "main.93fb69ff.js.map": "/todo-mindbox/static/js/main.93fb69ff.js.map",
     "543.1247c494.chunk.js.map": "/todo-mindbox/static/js/543.1247c494.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.eae1be10.css",
+    "static/css/main.080b487e.css",
     "static/js/main.93fb69ff.js"
   ]
 }
