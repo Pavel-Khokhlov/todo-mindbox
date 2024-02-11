@@ -16,7 +16,8 @@ import ModalEdit from "../ModalEdit/ModalEdit";
 const StyledApp = styled.section`
   position: relative;
   width: 100vw;
-  min-height: 100%;
+  min-height: webkit-fill-available;
+  height: 100vh;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;

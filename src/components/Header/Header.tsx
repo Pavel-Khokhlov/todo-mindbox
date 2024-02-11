@@ -13,7 +13,7 @@ import Notification from "../Notification/Notification";
 import { LOCALES, TranslationContext } from "../../context/TranslationContext";
 
 const HeaderTop = styled.header`
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -25,7 +25,7 @@ const HeaderTop = styled.header`
   box-sizing: border-box;
   padding-top: min(20px, 3vw);
   padding-bottom: min(30px, 5vw);
-  z-index: 100;
+  z-index: 10;
 `;
 
 const StyledThemeButton = styled(SVG)<SVGProps>`

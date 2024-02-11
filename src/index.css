@@ -24,12 +24,13 @@
 body {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100%;
   background-color: rgb(245, 245, 245);
 }
 
 html {
   font-family: "Roboto Condensed", sans-serif;
+  height: 100%;
 }
 
 #root {

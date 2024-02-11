@@ -14,7 +14,7 @@ export const translations = {
     header_title_active: "Active list",
     header_title_completed: "Completed list",
     // главный экран
-    main_input_plh: `What is the  task to be done?`,
+    main_input_plh: `What is the task to be done?`,
     // modal
     modal_edit_title: `Edit the task`,
     modal_btn_cancel: `CANCEL`,

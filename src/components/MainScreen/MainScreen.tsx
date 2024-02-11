@@ -19,6 +19,7 @@ const StyledMain = styled.main`
   box-sizing: border-box;
   z-index: 1;
   flex: 1 1 auto;
+  padding-top: 80px;
 `;
 
 const StyledMainTodos = styled.section`

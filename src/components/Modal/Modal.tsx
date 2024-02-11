@@ -24,7 +24,7 @@ const StyledModal = styled.section`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: 10;
+  z-index: 20;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.5s ease;
