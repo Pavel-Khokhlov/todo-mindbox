@@ -28,15 +28,16 @@ const StyledApp = styled.section`
 
 const App = observer(() => {
   const { globalUIStore, todosStore } = useStore();
-  const {locale, isNotificationShown, isEditModalShown } = globalUIStore;
+  const { locale, isNotificationShown, isEditModalShown } = globalUIStore;
+  const { todosList } = todosStore;
 
   useEffect(() => {
-    if (todosStore.todosList.length !== 0) {
-      localStorage.setItem(KEY_TODOS, JSON.stringify(todosStore.todosList));
+    if (todosList.length !== 0) {
+      localStorage.setItem(KEY_TODOS, JSON.stringify(todosList));
     } else {
       localStorage.removeItem(KEY_TODOS);
     }
-  }, [todosStore.todosList]);
+  }, [todosList]);
 
   useEffect(() => {
     if (isNotificationShown) {

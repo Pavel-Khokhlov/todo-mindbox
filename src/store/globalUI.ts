@@ -38,8 +38,9 @@ export class GlobalUIStore {
   initialLocale() {
     const value = localStorage.getItem(TODO_LOCALE);
     if (!value) {
-      localStorage.setItem(TODO_LOCALE, LOCALES.ENGLISH);
-      return this.locale = LOCALES.ENGLISH;
+      let systemLang = window.navigator.language === LOCALES.RUSSIAN ? LOCALES.RUSSIAN : LOCALES.ENGLISH;
+      localStorage.setItem(TODO_LOCALE, systemLang);
+      return this.locale = systemLang;
     } else {
       const newValue = value === LOCALES.ENGLISH ? LOCALES.ENGLISH : LOCALES.RUSSIAN;
       HTML?.setAttribute('lang', newValue)
