@@ -25,11 +25,11 @@ const FormTodo = observer(() => {
 
   const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (value.length === 0) {
+    /* if (value.length === 0) {
       return alert("Please, enter your todo!");
     }
     todosStore.setAddNewTodo(value);
-    setValue("");
+    setValue(""); */
   };
 
   const handleFocus = () => {
