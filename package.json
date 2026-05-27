@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "PUBLIC_URL=/todo-mindbox react-app-rewired start",
-    "build": "PUBLIC_URL=/todo-mindbox react-app-rewired build",
+    "build": "PUBLIC_URL=/todo-mindbox/ react-app-rewired build",
     "build:development": "env-cmd -f .env.development react-app-rewired build",
     "build:staging": "env-cmd -f .env.staging react-app-rewired build",
     "build:production": "env-cmd -f .env.production react-app-rewired build",
