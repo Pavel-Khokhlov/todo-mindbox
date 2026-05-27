@@ -24,3 +24,17 @@ npm run dev
 4. настроен счетчик показа незавершенных todos
 5. установил запрет копирования и постановки курсора на странице
 
+docker build \                                    
+  --build-arg BUILD_MODE=development \  
+  -t todo-spa:development .
+
+docker build \
+  --build-arg BUILD_MODE=staging \
+  --build-arg REACT_APP_URL=https://api.staging.com \
+  -t todo-spa:staging .
+
+docker build \                                    
+  --build-arg BUILD_MODE=production \
+  --build-arg REACT_APP_URL=https://api.production.com \   
+  -t todo-spa:production .
+

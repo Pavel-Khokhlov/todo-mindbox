@@ -140,6 +140,7 @@ const FieldInput = observer(
           return theme.greyColor;
         }
       }
+      return 'rgba(0,0,0,0)';
     };
 
     const inputStyle = {
